@@ -19,7 +19,7 @@ public class Main {
 
         builder.setToken(SECRETS.Token);
 
-        builder.setActivity(Activity.watching("yx"));
+        //builder.setActivity(Activity.watching("yx"));
 
         builder.setStatus(OnlineStatus.ONLINE);
 
@@ -37,6 +37,6 @@ public class Main {
     }
     public static void addCommand(){
         commandHandler.commands.put("ping", new cmdPing());
-        commandHandler.commands.put("text", new cmdVoiceChannel());
+        commandHandler.commands.put("voice", new cmdVoiceChannel());
     }
 }

@@ -17,7 +17,7 @@ public class commandHandler {
                 commands.get(cmd.invoke).executed(safe, cmd.event);
             }
         } else {
-            System.out.println("Du hast den Token vergessen/ flaschen befehl verwendet ja");
+            System.out.println("Du hast den Token vergessen/ flaschen befehl verwendet");
         }
     }
 
