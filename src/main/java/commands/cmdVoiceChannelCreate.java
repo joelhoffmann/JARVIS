@@ -1,4 +1,4 @@
-package comments;
+package commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -28,15 +28,6 @@ public class cmdVoiceChannelCreate implements command {
         name_voice = "Allgemein_User";
         name_rolle = event.getAuthor().getName() + "´s Rolle";
         name_kategorie = event.getAuthor().getName();
-
-        /* Für spätet
-        String[] split = event.getMessage().getContentDisplay().split(" ");
-
-        System.out.print("Input: ");
-        for(int i = 0; i< split.length; i++){
-            System.out.println(split[i]);
-        }
-        */
 
         if (event.getGuild().getVoiceChannelsByName(name_voice, false).size() == 0) {
             Guild guild = event.getGuild();

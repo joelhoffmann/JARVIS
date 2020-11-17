@@ -1,18 +1,15 @@
-package comments;
+package commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
-import java.util.EnumSet;
-import java.util.concurrent.TimeUnit;
 
-import static comments.cmdVoiceChannelCreate.name_voice;
-import static comments.cmdVoiceChannelCreate.name_channel;
-import static comments.cmdVoiceChannelCreate.name_rolle;
-import static comments.cmdVoiceChannelCreate.name_kategorie;
+import static commands.cmdVoiceChannelCreate.name_voice;
+import static commands.cmdVoiceChannelCreate.name_channel;
+import static commands.cmdVoiceChannelCreate.name_rolle;
+import static commands.cmdVoiceChannelCreate.name_kategorie;
 
 public class cmdVoiceChannelDelete implements command{
 

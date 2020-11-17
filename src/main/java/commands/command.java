@@ -1,4 +1,4 @@
-package comments;
+package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

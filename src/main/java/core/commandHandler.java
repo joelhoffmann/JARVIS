@@ -1,6 +1,6 @@
 package core;
 
-import comments.command;
+import commands.command;
 
 import java.util.HashMap;
 
