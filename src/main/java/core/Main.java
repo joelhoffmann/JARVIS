@@ -1,5 +1,6 @@
 package core;
 
+import comments.cmdAnmelden;
 import comments.cmdPing;
 import comments.cmdVoiceChannelCreate;
 import comments.cmdVoiceChannelDelete;
@@ -7,6 +8,7 @@ import listeners.commandListener;
 import listeners.readyListener;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import util.SECRETS;
 
 import javax.security.auth.login.LoginException;
@@ -22,6 +24,8 @@ public class Main {
         //builder.setActivity(Activity.watching("yx"));
 
         builder.setStatus(OnlineStatus.ONLINE);
+
+        builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
 
         addListener();
         addCommand();
@@ -42,5 +46,6 @@ public class Main {
         commandHandler.commands.put("ping", new cmdPing());
         commandHandler.commands.put("voice", new cmdVoiceChannelCreate());
         commandHandler.commands.put("delete", new cmdVoiceChannelDelete());
+        commandHandler.commands.put("join", new cmdAnmelden());
     }
 }

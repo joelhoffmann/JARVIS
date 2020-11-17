@@ -1,9 +1,11 @@
 package comments;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.awt.*;
 import java.util.EnumSet;
 
 public class cmdVoiceChannelCreate implements command {
@@ -58,14 +60,22 @@ public class cmdVoiceChannelCreate implements command {
             //DirectMessage
             event.getAuthor().openPrivateChannel().queue((channel) ->
             {
-                channel.sendMessage("Hey " + event.getAuthor().getName() + "!\n" + "Ich habe dir deinen eigenen Sprach- und Textkanal erstellt\nDie Kanäle gibt es aber nicht für immer !!! Nach 24h inaktivität werden beide Kanäle wieder gelöscht\nDenk dran: Kein Backup, kein Mittleid\nViel Spaß mit deinem eigen Teil des Servers").queue();
+                EmbedBuilder eb = new EmbedBuilder();
+                eb.setAuthor("Jarvis");
+                eb.setTitle("Hey " + event.getAuthor().getName() + "!\n");
+                eb.setDescription("Ich habe dir deinen eigenen Sprach- und Textkanal erstellt. " +
+                        "\nDie Kanäle gibt es aber nicht für immer !!! ⚠ " +
+                        "\nNach 24h Inaktivität werden beide Kanäle wieder gelöscht." +
+                        "\nDenk dran: Kein Backup, kein Mittleid." +
+                        "\nViel Spaß mit deinem eigen Teil des Servers");
+                eb.setColor(Color.red);
+                channel.sendMessage(eb.build()).queue();
             });
         } else {
-            //DirectMessage
-            event.getAuthor().openPrivateChannel().queue((channel) ->
-            {
-                channel.sendMessage("Du hast schon einen eigenen channel!").queue();
-            });
+                EmbedBuilder eb = new EmbedBuilder();
+                eb.setDescription("⚠" + " Du hast schon deinen eigenen Berreich!!!");
+                eb.setColor(Color.red);
+                event.getTextChannel().sendMessage(eb.build()).queue();
         }
 
     }

@@ -18,7 +18,9 @@ public class cmdPing implements command {
         if(permsCore.check(event)){
             return;
         }
-        event.getTextChannel().sendMessage("Pong").queue();
+        event.getTextChannel().sendMessage("Pong").complete();
+
+
     }
 
     @Override

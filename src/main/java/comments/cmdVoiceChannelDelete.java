@@ -1,10 +1,13 @@
 package comments;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.awt.*;
 import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
 
 import static comments.cmdVoiceChannelCreate.name_voice;
 import static comments.cmdVoiceChannelCreate.name_channel;
@@ -20,6 +23,7 @@ public class cmdVoiceChannelDelete implements command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
+
         name_channel = "chat";
         name_voice = "Allgemein_User";
         name_rolle = event.getAuthor().getName() + "´s Rolle";
@@ -46,17 +50,19 @@ public class cmdVoiceChannelDelete implements command{
                 channel.sendMessage("gelöscht").queue();
             });
         } else {
-            //DirectMessage
-            event.getAuthor().openPrivateChannel().queue((channel) ->
-            {
-                channel.sendMessage("Gibt nix zu löschen").queue();
-            });
+
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setDescription("⚠" + " Ich konnte nichts löschen");
+            eb.setColor(Color.red);
+            event.getTextChannel().sendMessage(eb.build()).queue();
+
         }
     }
 
+
     @Override
     public void executed(boolean success, MessageReceivedEvent event) {
-
+        System.out.println("Done");
     }
 
     @Override
