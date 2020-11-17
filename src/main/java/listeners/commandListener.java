@@ -25,7 +25,6 @@ public class commandListener extends ListenerAdapter {
                 .build();
     }
     public void onMessageReceived(@Nonnull MessageReceivedEvent event){
-        System.out.println(event.getMessage().getContentDisplay());
 
         if(event.getMessage().getContentDisplay().startsWith(Static.prefix) && event.getMessage().getAuthor().getId() != event.getJDA().getSelfUser().getId()){
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
