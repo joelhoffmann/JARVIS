@@ -26,6 +26,7 @@ public class TrackManager extends AudioEventAdapter {
 
     /**
      * Erstellt eine Instanz der Klasse TrackManager.
+     *
      * @param player
      */
     public TrackManager(AudioPlayer player) {
@@ -35,7 +36,8 @@ public class TrackManager extends AudioEventAdapter {
 
     /**
      * Reiht den übergebenen Track in die Queue ein.
-     * @param track AudioTrack
+     *
+     * @param track  AudioTrack
      * @param author Member, der den Track eingereiht hat
      */
     public void queue(AudioTrack track, Member author) {
@@ -49,6 +51,7 @@ public class TrackManager extends AudioEventAdapter {
 
     /**
      * Returnt die momentane Queue als LinkedHashSet.
+     *
      * @return Queue
      */
     public Set<AudioInfo> getQueue() {
@@ -57,6 +60,7 @@ public class TrackManager extends AudioEventAdapter {
 
     /**
      * Returnt AudioInfo des Tracks aus der Queue.
+     *
      * @param track AudioTrack
      * @return AudioInfo
      */
@@ -90,8 +94,9 @@ public class TrackManager extends AudioEventAdapter {
      * PLAYER EVENT: TRACK STARTET
      * Wenn Einreiher nicht im VoiceChannel ist, wird der Player gestoppt.
      * Sonst connectet der Bot in den Voice Channel des Einreihers.
+     *
      * @param player AudioPlayer
-     * @param track AudioTrack
+     * @param track  AudioTrack
      */
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
@@ -108,20 +113,19 @@ public class TrackManager extends AudioEventAdapter {
      * PLAYER EVENT: TRACK ENDE
      * Wenn die Queue zuende ist, verlässt der Bot den Audio Channel.
      * Sonst wird der nächste Track in der Queue wiedergegeben.
+     *
      * @param player
      * @param track
      * @param endReason
      */
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        System.out.println("----------------------");
-        System.out.println(queue.poll().getAuthor().getGuild());
-        Guild g = queue.poll().getAuthor().getGuild();
-
-        if (queue.isEmpty())
-            g.getAudioManager().closeAudioConnection();
-        else
-            player.playTrack(queue.element().getTrack());
+        if(queue.poll() != null) {
+            Guild g = queue.poll().getAuthor().getGuild();
+            if (queue.isEmpty())
+                g.getAudioManager().closeAudioConnection();
+            else
+                player.playTrack(queue.element().getTrack());
+        }
     }
-
 }

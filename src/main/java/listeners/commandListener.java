@@ -24,11 +24,17 @@ public class commandListener extends ListenerAdapter {
                 .addEventListeners(new readyListener())
                 .build();
     }
-    public void onMessageReceived(@Nonnull MessageReceivedEvent event){
+
+    public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         System.out.println(event.getMessage());
-        if(event.getMessage().getContentDisplay().startsWith(Static.prefix) && event.getMessage().getAuthor().getId() != event.getJDA().getSelfUser().getId()){
+        if (event.getMessage().getContentDisplay().startsWith(Static.prefix) && event.getMessage().getAuthor().getId() != event.getJDA().getSelfUser().getId()) {
+            if (event.getAuthor().isBot()) {
+                return;
+            } else {
+                event.getMessage().delete().queue();
+            }
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
-            //event.getMessage().delete().queue();
+
         }
 
     }

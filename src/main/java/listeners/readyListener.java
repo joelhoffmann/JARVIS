@@ -61,6 +61,13 @@ public class readyListener extends ListenerAdapter {
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
 
+        event.getUser().openPrivateChannel().queue((channel) ->
+        {
+            channel.sendMessage("Hey " + event.getUser() +  "!" +
+                    "\nCool das du auf meinen Server gekommen bist!" +
+                    "\nIch bin Jarvis und kontrolliere hier alles" +
+                    "\n Schau doch einfach mal in den Willkommenschannel auf dem Server!").queue();
+        });
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.red);
         embedBuilder.setTitle("Verify yourself!");
