@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="supremeBot" />
+        <module name="J.A.R.V.I.S" />
       </profile>
     </annotationProcessing>
   </component>

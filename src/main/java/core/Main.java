@@ -5,6 +5,7 @@ import listeners.commandListener;
 import listeners.readyListener;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import util.SECRETS;
 
@@ -18,6 +19,7 @@ public class Main {
         builder.setToken(SECRETS.Token);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
+        builder.setActivity(Activity.playing("mit deinen Daten"));
         addListener();
         addCommand();
         try {

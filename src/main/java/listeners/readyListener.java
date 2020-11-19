@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import util.SECRETS;
+import util.Static;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
@@ -25,21 +26,11 @@ public class readyListener extends ListenerAdapter {
     }
 
     public void onReady(ReadyEvent event) {
-
         String out = "\nThis bot is running on following servers: \n";
-
         for (Guild g : event.getJDA().getGuilds()) {
             out += g.getName() + " (" + g.getId() + ") \n";
         }
-
         System.out.println(out);
-
-        for (Guild g : event.getJDA().getGuilds()) {
-            g.getTextChannels().get(0).sendMessage(
-                    "Hey guys! Im ONLINE!"
-            ).queue();
-        }
-
     }
 
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
@@ -71,7 +62,7 @@ public class readyListener extends ListenerAdapter {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.red);
         embedBuilder.setTitle("Verify yourself!");
-        event.getGuild().getTextChannelById("778314557134471179").sendMessage(embedBuilder.build()).complete().addReaction("👺").complete();
+        event.getGuild().getTextChannelById(Static.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete().addReaction("👺").complete();
         embedBuilder.clear();
     }
 

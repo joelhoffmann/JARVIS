@@ -221,8 +221,6 @@ public class cmdMusic implements command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
-        System.out.print("action ");
-        System.out.println(args[0].toLowerCase());
         guild = event.getGuild();
 
         if (args.length < 1) {
@@ -245,6 +243,10 @@ public class cmdMusic implements command {
                 return;
 
             }
+
+
+
+
 
         } else {
             switch (args[0].toLowerCase()) {
@@ -291,12 +293,10 @@ public class cmdMusic implements command {
 
                     List<Message> messages = event.getTextChannel().getHistory().retrievePast(50).complete();
                     for(int i = 0; i < messages.size(); i++){
-
                         String t = messages.get(i).toString();
-
                         String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
                         System.out.println(requiredString);
-                        event.getTextChannel().deleteMessageById(requiredString).queue();
+                        event.getTextChannel().deleteMessageById(requiredString).complete();
                     }
 
                     break;
