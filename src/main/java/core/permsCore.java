@@ -1,10 +1,9 @@
 package core;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import util.Static;
+import util.STATIC;
 
 import java.util.Arrays;
-import net.dv8tion.jda.api.entities.*;
 
 
 public class permsCore {
@@ -13,7 +12,7 @@ public class permsCore {
         //false = event
         //true = no event
 
-        if(Arrays.stream(Static.PERMS).anyMatch(event.getMember().getRoles().toString()::contains)){
+        if(Arrays.stream(STATIC.PERMS).anyMatch(event.getMember().getRoles().toString()::contains)){
             return false;
         }else {
             event.getTextChannel().sendMessage("you have not hte permissions to do that");

@@ -1,14 +1,14 @@
 package core;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import util.Static;
+import util.STATIC;
 
 import java.util.ArrayList;
 
 public class commandParser {
 
     public static commandContainer parser (String raw, MessageReceivedEvent event){
-        String beheaded = raw.replaceFirst(Static.prefix, "");
+        String beheaded = raw.replaceFirst(STATIC.prefix, "");
         String[] splitbeheaded = beheaded.split(" ");
         String invoke = splitbeheaded[0];
         ArrayList<String> split = new ArrayList<>();

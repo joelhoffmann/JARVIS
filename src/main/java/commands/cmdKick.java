@@ -1,14 +1,15 @@
 package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import util.Static;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import util.STATIC;
 
 import java.util.Arrays;
 
 public class cmdKick implements command {
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (Arrays.stream(Static.PERMStoKick).anyMatch(event.getMember().getRoles().toString()::contains)) {
+        if (Arrays.stream(STATIC.PERMStoKick).anyMatch(event.getMember().getRoles().toString()::contains)) {
             return false;
         } else {
             return true;

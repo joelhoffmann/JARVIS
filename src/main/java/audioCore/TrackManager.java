@@ -21,7 +21,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TrackManager extends AudioEventAdapter {
 
     private final AudioPlayer PLAYER;
-    private final Queue<AudioInfo> queue;
+    public static Queue<AudioInfo> queue;
 
 
     /**

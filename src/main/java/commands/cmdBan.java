@@ -1,6 +1,8 @@
 package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+
 public class cmdBan implements command{
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {

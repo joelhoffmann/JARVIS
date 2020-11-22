@@ -1,15 +1,17 @@
 package listeners;
 
+import core.commandHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import util.SECRETS;
-import util.Static;
+import util.STATIC;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
@@ -33,23 +35,6 @@ public class readyListener extends ListenerAdapter {
         System.out.println(out);
     }
 
-    public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
-        if(event.getUser().isBot()) return;
-        //Rollenzuweisung
-        if(event.getReactionEmote().getEmoji().contains("👺")){
-            System.out.println("emote true");
-            String[] test = {"Hoffis"};
-            if(Arrays.stream(test).noneMatch(event.getMember().getRoles().toString()::contains)){
-                event.getGuild().addRoleToMember(event.getUser().getId(),  event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
-                event.getChannel().deleteMessageById(event.getMessageId()).queueAfter(5, TimeUnit.SECONDS);
-            }
-            else {
-                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
-            }
-        }
-
-    }
-
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
 
         event.getUser().openPrivateChannel().queue((channel) ->
@@ -62,7 +47,7 @@ public class readyListener extends ListenerAdapter {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.red);
         embedBuilder.setTitle("Verify yourself!");
-        event.getGuild().getTextChannelById(Static.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete().addReaction("👺").complete();
+        event.getGuild().getTextChannelById(STATIC.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete().addReaction("👺").complete();
         embedBuilder.clear();
     }
 
