@@ -49,6 +49,7 @@ public class readyListener extends ListenerAdapter {
         embedBuilder.setTitle("Verify yourself!");
         event.getGuild().getTextChannelById(STATIC.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete().addReaction("👺").complete();
         embedBuilder.clear();
+        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
     }
 
 

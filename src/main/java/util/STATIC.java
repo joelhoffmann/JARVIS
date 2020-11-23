@@ -11,4 +11,10 @@ public class STATIC {
     public static String EmoteforBack = "⏮";
     public static String EmoteforStop = "⏹";
     public static String EmoteforShuffle = "🔀";
+    public static String EmoteforHoffi = "🦒";
+    public static String EmoteforNXZAS8CA = "🐻";
+    public static String EmoteforMalte = "🐺";
+    public static String Emoteforready = "✔";
+    public static String[] MainUser = {"Hoffis","Simons","Maltes"};
+
 }

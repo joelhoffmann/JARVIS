@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import static commands.cmdMusic.*;
 
 import java.awt.Color;
+import java.util.function.Predicate;
 
 
 public class commandListener extends ListenerAdapter {
@@ -44,9 +45,9 @@ public class commandListener extends ListenerAdapter {
             }
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
 
-        }else{
-            if(event.getAuthor().isBot()){
-                if(event.getMessage().getContentDisplay().contains("Ich spiele Musik")){
+        } else {
+            if (event.getAuthor().isBot()) {
+                if (event.getMessage().getContentDisplay().contains("Ich spiele Musik")) {
                     AudioTrack track = getPlayer(guild).getPlayingTrack();
                     AudioTrackInfo info = track.getInfo();
 
@@ -69,21 +70,66 @@ public class commandListener extends ListenerAdapter {
     }
 
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
-        if(event.getUser().isBot()) return;
+        if (event.getUser().isBot()) return;
         //Rollenzuweisung
-        if(event.getReactionEmote().getEmoji().contains("👺")){
+        if (event.getReactionEmote().getEmoji().contains("👺")) {
             event.getReaction().removeReaction(event.getUser()).queue();
             System.out.println("emote true");
             String[] test = {"Hoffis"};
-            if(Arrays.stream(test).noneMatch(event.getMember().getRoles().toString()::contains)){
-                event.getGuild().addRoleToMember(event.getUser().getId(),  event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
+            if (Arrays.stream(test).noneMatch(event.getMember().getRoles().toString()::contains)) {
+                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
                 event.getChannel().deleteMessageById(event.getMessageId()).queueAfter(5, TimeUnit.SECONDS);
-            }
-            else {
+            } else {
                 event.getChannel().sendMessage("Du hast die Rolle schon").queue();
             }
         }
-        if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)){
+        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforHoffi)) {
+            event.getReaction().removeReaction(event.getUser()).queue();
+            System.out.println("emote true");
+            String[] vergl = {"Hoffis"};
+            if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
+                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
+                event.getChannel().sendMessage("Du hast die Rolle von Joel erhalten").queue();
+            } else {
+                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
+            }
+        }
+        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforNXZAS8CA)) {
+            event.getReaction().removeReaction(event.getUser()).queue();
+            System.out.println("emote true");
+            String[] vergl = {"Simons"};
+            if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
+                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Simons", false).get(0)).queue();
+                event.getChannel().sendMessage("Du hast die Rolle von Simon erhalten").queue();
+            } else {
+                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
+            }
+        }
+        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforMalte)) {
+            event.getReaction().removeReaction(event.getUser()).queue();
+            System.out.println("emote true");
+            String[] vergl = {"Maltes"};
+            if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
+                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Maltes", false).get(0)).queue();
+                event.getChannel().sendMessage("Du hast die Rolle von Malte erhalten").queue();
+            } else {
+                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
+            }
+        }
+        if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforready)) {
+            event.getReaction().removeReaction(event.getUser()).queue();
+            System.out.println("emote true");
+            List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
+            for (int i = 0; i < messages.size(); i++) {
+                String t = messages.get(i).toString();
+                String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
+                System.out.println(requiredString);
+                event.getChannel().deleteMessageById(requiredString).complete();
+            }
+            event.getGuild().removeRoleFromMember(event.getUser().getIdLong(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
+        }
+        //Musik
+        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             for (int i = 1; i == 1; i--) {
                 skip(guild);
@@ -97,7 +143,7 @@ public class commandListener extends ListenerAdapter {
                     .addField("by", info.author, false);
             event.getChannel().editMessageById(event.getMessageId(), eb.build()).queue();
         }
-        if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)){
+        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             TrackManager.queue.clear();
             guild.getAudioManager().closeAudioConnection();
             List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
