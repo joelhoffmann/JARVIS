@@ -1,7 +1,7 @@
 package util;
 
 public class STATIC {
-    public static String prefix = "-";
+    public static String prefix = ".";
     public static String[] PERMS = {"test"};
     public static String[] PERMStoKick = {"test"};
     public static String IDofMusicControlChannel = "778708291135864832";
