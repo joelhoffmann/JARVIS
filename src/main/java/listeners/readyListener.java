@@ -36,20 +36,15 @@ public class readyListener extends ListenerAdapter {
     }
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-
+        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
         event.getUser().openPrivateChannel().queue((channel) ->
         {
-            channel.sendMessage("Hey " + event.getUser() +  "!" +
+            channel.sendMessage("Hey " + event.getUser().getName() + "!" +
                     "\nCool das du auf meinen Server gekommen bist!" +
-                    "\nIch bin Jarvis und kontrolliere hier alles" +
-                    "\n Schau doch einfach mal in den Willkommenschannel auf dem Server!").queue();
+                    "\nIch bin Jarvis und kontrolliere hier alles." +
+                    "\nSchau doch einfach mal in den Willkommenschannel auf dem Server!").queue();
         });
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.red);
-        embedBuilder.setTitle("Verify yourself!");
-        event.getGuild().getTextChannelById(STATIC.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete().addReaction("👺").complete();
-        embedBuilder.clear();
-        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
+
     }
 
 

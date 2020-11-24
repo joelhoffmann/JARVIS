@@ -57,9 +57,9 @@ public class cmdVoiceChannelCreate implements command {
                 eb.setTitle("Hey " + event.getAuthor().getName() + "!\n");
                 eb.setDescription("Ich habe dir deinen eigenen Sprach- und Textkanal erstellt. " +
                         "\nDie Kanäle gibt es aber nicht für immer !!! ⚠ " +
-                        "\nNach 24h Inaktivität werden beide Kanäle wieder gelöscht." +
-                        "\nDenk dran: Kein Backup, kein Mittleid." +
-                        "\nViel Spaß mit deinem eigen Teil des Servers");
+                        "\nNach langer Inaktivität werden beide Kanäle wieder gelöscht." +
+                        "\nAlso denk dran: Kein Backup, kein Mittleid." +
+                        "\nViel Spaß mit deinem eigenen Teil des Servers!");
                 eb.setColor(Color.red);
                 channel.sendMessage(eb.build()).queue();
             });
@@ -69,7 +69,6 @@ public class cmdVoiceChannelCreate implements command {
                 eb.setColor(Color.red);
                 event.getTextChannel().sendMessage(eb.build()).queue();
         }
-
     }
 
     @Override

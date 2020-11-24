@@ -72,19 +72,7 @@ public class commandListener extends ListenerAdapter {
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
         if (event.getUser().isBot()) return;
         //Rollenzuweisung
-        if (event.getReactionEmote().getEmoji().contains("👺")) {
-            event.getReaction().removeReaction(event.getUser()).queue();
-            System.out.println("emote true");
-            String[] test = {"Hoffis"};
-            if (Arrays.stream(test).noneMatch(event.getMember().getRoles().toString()::contains)) {
-                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
-                event.getChannel().deleteMessageById(event.getMessageId()).queueAfter(5, TimeUnit.SECONDS);
-            } else {
-                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
-            }
-        }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforHoffi)) {
-            event.getReaction().removeReaction(event.getUser()).queue();
             System.out.println("emote true");
             String[] vergl = {"Hoffis"};
             if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
@@ -95,7 +83,6 @@ public class commandListener extends ListenerAdapter {
             }
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforNXZAS8CA)) {
-            event.getReaction().removeReaction(event.getUser()).queue();
             System.out.println("emote true");
             String[] vergl = {"Simons"};
             if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
@@ -106,7 +93,6 @@ public class commandListener extends ListenerAdapter {
             }
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforMalte)) {
-            event.getReaction().removeReaction(event.getUser()).queue();
             System.out.println("emote true");
             String[] vergl = {"Maltes"};
             if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
@@ -117,15 +103,20 @@ public class commandListener extends ListenerAdapter {
             }
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforready)) {
-            event.getReaction().removeReaction(event.getUser()).queue();
             System.out.println("emote true");
+
             List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
-            for (int i = 0; i < messages.size(); i++) {
-                String t = messages.get(i).toString();
-                String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
-                System.out.println(requiredString);
-                event.getChannel().deleteMessageById(requiredString).complete();
+            //System.out.println(messages.get(0));
+            if (messages.size() > 1) {
+                for (int i = 0; i < (messages.size() - 1); i++) {
+                    String t = messages.get(i).toString();
+                    String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
+                    System.out.println(requiredString);
+                    event.getChannel().deleteMessageById(requiredString).complete();
+                }
             }
+
+            event.getReaction().removeReaction(event.getUser()).queue();
             event.getGuild().removeRoleFromMember(event.getUser().getIdLong(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
         }
         //Musik

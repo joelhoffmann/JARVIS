@@ -239,7 +239,7 @@ public class cmdMusic implements command {
                     input = "ytsearch: " + input;
 
                 loadTrack(input, event.getMember(), event.getMessage());
-                event.getGuild().getTextChannelById(STATIC.LOGChannel).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
+                event.getGuild().getTextChannelById(STATIC.ControlChannel).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
 
             } else {
                 sendErrorMsg(event, "Please enter a valid source!_test");

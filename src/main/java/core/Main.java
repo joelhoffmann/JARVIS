@@ -36,12 +36,12 @@ public class Main {
     }
 
     public static void addCommand() {
-        commandHandler.commands.put("ping", new cmdPing());
-        commandHandler.commands.put("voice", new cmdVoiceChannelCreate());
+        //commandHandler.commands.put("ping", new cmdPing());
+        commandHandler.commands.put("create", new cmdVoiceChannelCreate());
         commandHandler.commands.put("delete", new cmdVoiceChannelDelete());
         commandHandler.commands.put("join", new cmdAnmelden());
-        commandHandler.commands.put("kick", new cmdKick());
-        commandHandler.commands.put("ban", new cmdBan());
-        commandHandler.commands.put("music", new cmdMusic());
+        //commandHandler.commands.put("kick", new cmdKick());
+        //commandHandler.commands.put("ban", new cmdBan());
+        //commandHandler.commands.put("music", new cmdMusic());
     }
 }

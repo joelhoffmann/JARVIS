@@ -3,27 +3,32 @@ package commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import util.STATIC;
 
 import java.awt.*;
+import java.util.List;
 
 public class cmdAnmelden implements command {
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        return false;
+        if(event.getChannel().getId().equals(STATIC.ControlChannel)){
+            return false;
+        }else {
+            return true;
+        }
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
-        event.getAuthor().openPrivateChannel().queue((channel) ->
+        /*event.getAuthor().openPrivateChannel().queue((channel) ->
         {
             channel.sendMessage("Hey " + event.getAuthor().getName() + "!" +
                     "\nCool das du auf meinen Server gekommen bist!" +
-                    "\nIch bin Jarvis und kontrolliere hier alles" +
+                    "\nIch bin Jarvis und kontrolliere hier alles." +
                     "\nSchau doch einfach mal in den Willkommenschannel auf dem Server!").queue();
         });
 
+         */
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.red);
         embedBuilder.setTitle("Wilkommen auf brain.exe!");
@@ -35,7 +40,7 @@ public class cmdAnmelden implements command {
                 "\n Für Hoffi " + STATIC.EmoteforHoffi +
                 "\nWenn du fertig bist, klicke auf den Haken!");
 
-        Message msg = event.getGuild().getTextChannelById("778314557134471179").sendMessage(embedBuilder.build()).complete();
+        Message msg = event.getGuild().getTextChannelById(STATIC.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete();
         msg.addReaction(STATIC.EmoteforMalte).complete();
         msg.addReaction(STATIC.EmoteforNXZAS8CA).complete();
         msg.addReaction(STATIC.EmoteforHoffi).complete();
