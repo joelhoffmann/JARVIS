@@ -6,12 +6,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
 
 import java.awt.*;
-import java.util.List;
 
 public class cmdAnmelden implements command {
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if(event.getChannel().getId().equals(STATIC.ControlChannel)){
+        if(event.getChannel().getId().equals(STATIC.IDofControlChannel)){
             return false;
         }else {
             return true;

@@ -36,7 +36,7 @@ public class Main {
     }
 
     public static void addCommand() {
-        //commandHandler.commands.put("ping", new cmdPing());
+        commandHandler.commands.put("ping", new cmdPing());
         commandHandler.commands.put("create", new cmdVoiceChannelCreate());
         commandHandler.commands.put("delete", new cmdVoiceChannelDelete());
         commandHandler.commands.put("join", new cmdAnmelden());

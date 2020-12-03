@@ -239,7 +239,7 @@ public class cmdMusic implements command {
                     input = "ytsearch: " + input;
 
                 loadTrack(input, event.getMember(), event.getMessage());
-                event.getGuild().getTextChannelById(STATIC.ControlChannel).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
+                event.getGuild().getTextChannelById(STATIC.IDofControlChannel).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
 
             } else {
                 sendErrorMsg(event, "Please enter a valid source!_test");
@@ -290,7 +290,6 @@ public class cmdMusic implements command {
                     getManager(guild).purgeQueue();
                     skip(guild);
                     guild.getAudioManager().closeAudioConnection();
-
                     List<Message> messages = event.getTextChannel().getHistory().retrievePast(50).complete();
                     for (int i = 0; i < messages.size(); i++) {
                         String t = messages.get(i).toString();
@@ -316,14 +315,12 @@ public class cmdMusic implements command {
 
                     AudioTrack track = getPlayer(guild).getPlayingTrack();
                     AudioTrackInfo info = track.getInfo();
-
                     eb = new EmbedBuilder();
                     eb.setColor(Color.blue)
                             .setDescription("Aktueller Track")
                             .addField("Title", info.title, false)
                             //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
                             .addField("by", info.author, false);
-
                     Message msg = event.getChannel().sendMessage(eb.build()).complete();
                     msg.addReaction(STATIC.EmoteforBack).complete();
                     msg.addReaction(STATIC.EmoteforStop).complete();
@@ -337,19 +334,14 @@ public class cmdMusic implements command {
                 case "queue":
 
                     if (isIdle(guild)) return;
-
                     int sideNumb = args.length > 1 ? Integer.parseInt(args[1]) : 1;
-
                     List<String> tracks = new ArrayList<>();
                     List<String> trackSublist;
-
                     getManager(guild).getQueue().forEach(audioInfo -> tracks.add(buildQueueMessage(audioInfo)));
-
                     if (tracks.size() > 20)
                         trackSublist = tracks.subList((sideNumb - 1) * 20, (sideNumb - 1) * 20 + 20);
                     else
                         trackSublist = tracks;
-
                     String out = trackSublist.stream().collect(Collectors.joining("\n"));
                     int sideNumbAll = tracks.size() >= 20 ? tracks.size() / 20 : 1;
                     System.out.println("queue shown");

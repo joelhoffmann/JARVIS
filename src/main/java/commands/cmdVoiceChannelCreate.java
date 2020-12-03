@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import util.STATIC;
 
 import java.awt.*;
 import java.util.EnumSet;
@@ -18,7 +18,12 @@ public class cmdVoiceChannelCreate implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        return false;
+        if (event.getChannel().getId().equals(STATIC.IDofControlChannel)) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     @Override
@@ -64,10 +69,10 @@ public class cmdVoiceChannelCreate implements command {
                 channel.sendMessage(eb.build()).queue();
             });
         } else {
-                EmbedBuilder eb = new EmbedBuilder();
-                eb.setDescription("⚠" + " Du hast schon deinen eigenen Berreich!!!");
-                eb.setColor(Color.red);
-                event.getTextChannel().sendMessage(eb.build()).queue();
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setDescription("⚠" + " Du hast schon deinen eigenen Berreich!!!");
+            eb.setColor(Color.red);
+            event.getTextChannel().sendMessage(eb.build()).queue();
         }
     }
 

@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="J.A.R.V.I.S" options="--add-exports java.desktop/sun.awt.image=ALL-UNNAMED" />
+      <module name="J.A.R.V.I.S" options="" />
     </option>
   </component>
 </project>

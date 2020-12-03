@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import util.STATIC;
 
 import java.awt.*;
 
@@ -16,7 +17,11 @@ public class cmdVoiceChannelDelete implements command{
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        return false;
+        if(event.getChannel().getId().equals(STATIC.IDofControlChannel)){
+            return false;
+        }else {
+            return true;
+        }
     }
 
     @Override
