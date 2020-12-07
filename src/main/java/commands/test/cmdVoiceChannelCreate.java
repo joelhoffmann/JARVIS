@@ -1,5 +1,6 @@
-package commands;
+package commands.test;
 
+import commands.command;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -15,6 +16,7 @@ public class cmdVoiceChannelCreate implements command {
     public static String name_voice;
     public static String name_rolle;
     public static String name_kategorie;
+    public static String name_command;
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
@@ -31,11 +33,12 @@ public class cmdVoiceChannelCreate implements command {
 
 
         name_channel = "chat";
-        name_voice = "Allgemein_User";
+        name_voice = "voice";
+        name_command = "bot";
         name_rolle = event.getAuthor().getName() + "´s Rolle";
         name_kategorie = event.getAuthor().getName();
 
-        if (event.getGuild().getVoiceChannelsByName(name_voice, false).size() == 0) {
+        if (event.getGuild().getRolesByName(name_rolle, false ).size() == 0) {
             Guild guild = event.getGuild();
             //Rolle erstellen
             guild.createRole().setName(name_rolle).complete();
@@ -50,6 +53,10 @@ public class cmdVoiceChannelCreate implements command {
                     .addRolePermissionOverride(event.getGuild().getPublicRole().getIdLong(), null, EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL))
                     .queue();
             guild.createTextChannel(name_channel, event.getGuild().getCategoriesByName(name_kategorie, false).get(0))
+                    .addRolePermissionOverride(event.getGuild().getRolesByName(name_rolle, false).get(0).getIdLong(), EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL), null)
+                    .addRolePermissionOverride(event.getGuild().getPublicRole().getIdLong(), null, EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL))
+                    .queue();
+            guild.createTextChannel(name_command, event.getGuild().getCategoriesByName(name_kategorie, false).get(0))
                     .addRolePermissionOverride(event.getGuild().getRolesByName(name_rolle, false).get(0).getIdLong(), EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL), null)
                     .addRolePermissionOverride(event.getGuild().getPublicRole().getIdLong(), null, EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL))
                     .queue();

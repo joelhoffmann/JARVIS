@@ -21,12 +21,8 @@ public class cmdPing implements command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
-        
-        if(permsCore.check(event)){
-            return;
-        }
-        event.getTextChannel().sendMessage("Pong").complete();
 
+        System.out.println(event.getGuild().getTextChannelById("778314557134471179").getPermissionOverrides());
 
     }
 
