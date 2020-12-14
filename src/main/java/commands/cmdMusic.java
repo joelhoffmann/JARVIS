@@ -24,13 +24,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-/**
- * Created by zekro on 18.06.2017 / 11:47
- * supremeBot.commands
- * dev.zekro.de - github.zekro.de
- * © zekro 2017
- */
-
 public class cmdMusic implements command {
 
 
