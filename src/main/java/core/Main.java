@@ -46,7 +46,7 @@ public class Main {
         commandHandler.commands.put("join", new cmdAnmelden());
         //commandHandler.commands.put("kick", new cmdKick());
         //commandHandler.commands.put("ban", new cmdBan());
-        commandHandler.commands.put("music", new cmdMusic());
+        //commandHandler.commands.put("music", new cmdMusic());
         commandHandler.commands.put("add", new cmdPrivateAddRoleToUser());
         commandHandler.commands.put("remove", new cmdPrivateRemoveRoleFromUser());
     }

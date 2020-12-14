@@ -22,7 +22,7 @@ public class cmdPing implements command {
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
 
-        System.out.println(event.getGuild().getTextChannelById("778314557134471179").getPermissionOverrides());
+        System.out.println(event.getGuild().getMembers());
 
     }
 
