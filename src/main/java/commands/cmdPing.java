@@ -19,7 +19,7 @@ public class cmdPing implements command {
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
 
-        System.out.println(event.getGuild().getMembers());
+        event.getChannel().sendMessage("Pong").queue();
 
     }
 
