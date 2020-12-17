@@ -1,10 +1,10 @@
 package core;
 
 import commands.*;
-import commands.test.cmdPrivateAddRoleToUser;
-import commands.test.cmdPrivateRemoveRoleFromUser;
-import commands.test.cmdVoiceChannelCreate;
-import commands.test.cmdVoiceChannelDelete;
+import commands.ChannelCommand.cmdPrivateAddRoleToUser;
+import commands.ChannelCommand.cmdPrivateRemoveRoleFromUser;
+import commands.ChannelCommand.cmdVoiceChannelCreate;
+import commands.ChannelCommand.cmdVoiceChannelDelete;
 import listeners.commandListener;
 import listeners.readyListener;
 import net.dv8tion.jda.api.JDABuilder;
@@ -49,5 +49,7 @@ public class Main {
         //commandHandler.commands.put("music", new cmdMusic());
         commandHandler.commands.put("add", new cmdPrivateAddRoleToUser());
         commandHandler.commands.put("remove", new cmdPrivateRemoveRoleFromUser());
+        commandHandler.commands.put("info", new cmdInfo());
+        commandHandler.commands.put("setup", new cmdSetup());
     }
 }

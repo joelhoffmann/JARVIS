@@ -1,4 +1,4 @@
-package commands.test;
+package commands.ChannelCommand;
 
 import commands.command;
 import net.dv8tion.jda.api.EmbedBuilder;

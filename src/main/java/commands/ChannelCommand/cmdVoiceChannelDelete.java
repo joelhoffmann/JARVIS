@@ -1,18 +1,17 @@
-package commands.test;
+package commands.ChannelCommand;
 
 import commands.command;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
 
 import java.awt.*;
 
-import static commands.test.cmdVoiceChannelCreate.name_voice;
-import static commands.test.cmdVoiceChannelCreate.name_channel;
-import static commands.test.cmdVoiceChannelCreate.name_rolle;
-import static commands.test.cmdVoiceChannelCreate.name_kategorie;
-import static commands.test.cmdVoiceChannelCreate.name_command;
+import static commands.ChannelCommand.cmdVoiceChannelCreate.name_voice;
+import static commands.ChannelCommand.cmdVoiceChannelCreate.name_channel;
+import static commands.ChannelCommand.cmdVoiceChannelCreate.name_rolle;
+import static commands.ChannelCommand.cmdVoiceChannelCreate.name_kategorie;
+import static commands.ChannelCommand.cmdVoiceChannelCreate.name_command;
 
 public class cmdVoiceChannelDelete implements command {
 
