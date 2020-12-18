@@ -55,8 +55,10 @@ public class readyListener extends ListenerAdapter {
             channel.sendMessage("Hey " + event.getUser().getName() + "!" +
                     "\nCool das du auf meinen Server gekommen bist!" +
                     "\nIch bin Jarvis und kontrolliere hier alles." +
-                    "\nSchau doch einfach mal in den Willkommenschannel auf dem Server!").queue();
+                    "\nSchau doch einfach mal in den welcome-Channel auf dem Server!").queue();
         });
+
+        event.getGuild().getTextChannelsByName("welcome", false).get(0).sendMessage("welcome @" + event.getUser().getName()).complete();
 
     }
 

@@ -17,9 +17,10 @@ public class cmdVoiceChannelDelete implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (event.getChannel().getId().equals(STATIC.IDofControlChannel)) {
+        if (event.getTextChannel().getName().equals("jarvis_control") || event.getMessage().getCategory().getName().equals(event.getAuthor().getName())) {
             return false;
         } else {
+            System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
             return true;
         }
     }
@@ -29,34 +30,33 @@ public class cmdVoiceChannelDelete implements command {
 
         name_channel = "chat";
         name_voice = "voice";
-        name_command = "bot";
-        name_rolle = event.getAuthor().getName() + "´s Rolle";
+        name_rolle = event.getAuthor().getName() + "´s";
         name_kategorie = event.getAuthor().getName();
 
-        /* Für spätet
-        String[] split = event.getMessage().getContentDisplay().split(" ");
-
-        System.out.print("Input: ");
-        for(int i = 0; i< split.length; i++){
-            System.out.println(split[i]);
-        }
-        */
-        if (event.getGuild().getRolesByName(name_rolle, false).size() >= 1) {
+        if (event.getGuild().getRolesByName(name_rolle, false).size() > 0) {
             for (int i = 0; i < event.getGuild().getTextChannelsByName(name_channel, false).size(); i++) {
                 String role = event.getGuild().getRolesByName(name_rolle, false).get(0).getId();
                 for (int j = 0; j < event.getGuild().getTextChannelsByName(name_channel, false).get(i).getPermissionOverrides().size(); j++) {
-                    String test = event.getGuild().getTextChannelsByName(name_channel, false).get(i).getPermissionOverrides().get(j).toString();
-                    if (test.contains(role)) {
-                        event.getGuild().getVoiceChannelsByName(name_voice, false).get(i).delete().reason("reason").complete();
+                    String permissions = event.getGuild().getTextChannelsByName(name_channel, false).get(i).getPermissionOverrides().get(j).toString();
+                    if (permissions.contains(role)) {
                         event.getGuild().getTextChannelsByName(name_channel, false).get(i).delete().reason("reason").complete();
-                        event.getGuild().getTextChannelsByName(name_command, false).get(i).delete().reason("reason").complete();
-                        event.getGuild().getCategoriesByName(name_kategorie, false).get(0).delete().reason("reason").complete();
-                        for (int k = 0; k < event.getGuild().getRolesByName(name_rolle, false).size(); k++) {
-                            event.getGuild().getRolesByName(name_rolle, false).get(k).delete().reason("reason").complete();
-                        }
                     }
                 }
             }
+            for (int i = 0; i < event.getGuild().getVoiceChannelsByName(name_voice, false).size(); i++) {
+                String role = event.getGuild().getRolesByName(name_rolle, false).get(0).getId();
+                for (int j = 0; j < event.getGuild().getVoiceChannelsByName(name_voice, false).get(i).getPermissionOverrides().size(); j++) {
+                    String permissions = event.getGuild().getVoiceChannelsByName(name_voice, false).get(i).getPermissionOverrides().get(j).toString();
+                    if (permissions.contains(role)) {
+                        event.getGuild().getVoiceChannelsByName(name_voice, false).get(i).delete().reason("reason").complete();
+                    }
+                }
+            }
+            event.getGuild().getCategoriesByName(name_kategorie, false).get(0).delete().reason("reason").complete();
+            for (int k = 0; k < event.getGuild().getRolesByName(name_rolle, false).size(); k++) {
+                event.getGuild().getRolesByName(name_rolle, false).get(k).delete().reason("reason").complete();
+            }
+
             event.getAuthor().openPrivateChannel().queue((channel) ->
             {
                 EmbedBuilder eb = new EmbedBuilder();

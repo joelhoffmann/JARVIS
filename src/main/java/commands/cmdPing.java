@@ -8,9 +8,10 @@ public class cmdPing implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if(event.getChannel().getId().equals(STATIC.IDofControlChannel)){
+        if (event.getTextChannel().getName().equals("jarvis_control")) {
             return false;
-        }else {
+        } else {
+            System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
             return true;
         }
 

@@ -21,6 +21,7 @@ public class cmdPrivateAddRoleToUser implements command {
         String name = args[0];
         name = name.substring(1);
         event.getGuild().addRoleToMember(event.getGuild().getMembersByName(name, false).get(0), event.getGuild().getRolesByName(name_rolle, false).get(0)).queue();
+        event.getTextChannel().sendMessage(args[0] + " wurde zu deinem Berreich hinzugefügt!").queue();
     }
 
     @Override

@@ -10,9 +10,10 @@ import java.awt.*;
 public class cmdAnmelden implements command {
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if(event.getChannel().getId().equals(STATIC.IDofControlChannel)){
+        if (event.getTextChannel().getName().equals("jarvis_control")) {
             return false;
-        }else {
+        } else {
+            System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
             return true;
         }
     }
@@ -39,13 +40,12 @@ public class cmdAnmelden implements command {
                 "\n Für Hoffi " + STATIC.EmoteforHoffi +
                 "\nWenn du fertig bist, klicke auf den Haken!");
 
-        Message msg = event.getGuild().getTextChannelById(STATIC.IDofWelcomeChannel).sendMessage(embedBuilder.build()).complete();
+        Message msg = event.getGuild().getTextChannelsByName("welcome", false).get(0).sendMessage(embedBuilder.build()).complete();
         msg.addReaction(STATIC.EmoteforMalte).complete();
         msg.addReaction(STATIC.EmoteforNXZAS8CA).complete();
         msg.addReaction(STATIC.EmoteforHoffi).complete();
         msg.addReaction(STATIC.Emoteforready).complete();
         embedBuilder.clear();
-        event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
     }
 
     @Override

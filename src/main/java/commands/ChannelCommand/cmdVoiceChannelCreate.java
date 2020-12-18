@@ -20,11 +20,7 @@ public class cmdVoiceChannelCreate implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (event.getChannel().getId().equals(STATIC.IDofControlChannel)) {
-            return false;
-        } else {
-            return true;
-        }
+        return false;
 
     }
 
@@ -34,8 +30,7 @@ public class cmdVoiceChannelCreate implements command {
 
         name_channel = "chat";
         name_voice = "voice";
-        name_command = "bot";
-        name_rolle = event.getAuthor().getName() + "´s Rolle";
+        name_rolle = event.getAuthor().getName() + "´s";
         name_kategorie = event.getAuthor().getName();
 
         if (event.getGuild().getRolesByName(name_rolle, false ).size() == 0) {
@@ -53,10 +48,6 @@ public class cmdVoiceChannelCreate implements command {
                     .addRolePermissionOverride(event.getGuild().getPublicRole().getIdLong(), null, EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL))
                     .queue();
             guild.createTextChannel(name_channel, event.getGuild().getCategoriesByName(name_kategorie, false).get(0))
-                    .addRolePermissionOverride(event.getGuild().getRolesByName(name_rolle, false).get(0).getIdLong(), EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL), null)
-                    .addRolePermissionOverride(event.getGuild().getPublicRole().getIdLong(), null, EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL))
-                    .queue();
-            guild.createTextChannel(name_command, event.getGuild().getCategoriesByName(name_kategorie, false).get(0))
                     .addRolePermissionOverride(event.getGuild().getRolesByName(name_rolle, false).get(0).getIdLong(), EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL), null)
                     .addRolePermissionOverride(event.getGuild().getPublicRole().getIdLong(), null, EnumSet.of(Permission.VOICE_CONNECT, Permission.VIEW_CHANNEL))
                     .queue();

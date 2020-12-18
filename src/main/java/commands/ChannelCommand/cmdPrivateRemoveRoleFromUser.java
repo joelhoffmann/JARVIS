@@ -7,7 +7,7 @@ public class cmdPrivateRemoveRoleFromUser implements command {
     public static String name_rolle;
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        name_rolle = event.getAuthor().getName() + "´s Rolle";
+        name_rolle = event.getAuthor().getName() + "´s";
         if(event.getGuild().getRolesByName(name_rolle, false).size() > 0){
             return false;
 

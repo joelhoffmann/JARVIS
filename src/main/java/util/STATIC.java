@@ -14,6 +14,7 @@ public class STATIC {
     public static String EmoteforNXZAS8CA = "🐻";
     public static String EmoteforMalte = "🐺";
     public static String Emoteforready = "✔";
+
     
     /*
     //Needs for controling the bot

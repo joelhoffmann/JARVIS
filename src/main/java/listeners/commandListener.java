@@ -35,7 +35,6 @@ public class commandListener extends ListenerAdapter {
     }
 
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        System.out.println(event.getMessage());
         if (event.getMessage().getContentDisplay().startsWith(STATIC.prefix) && event.getMessage().getAuthor().getId() != event.getJDA().getSelfUser().getId()) {
             if (event.getAuthor().isBot()) {
                 return;
@@ -115,8 +114,6 @@ public class commandListener extends ListenerAdapter {
                     event.getChannel().deleteMessageById(requiredString).complete();
                 }
             }
-
-            event.getReaction().removeReaction(event.getUser()).queue();
             event.getGuild().removeRoleFromMember(event.getUser().getIdLong(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
         }
         //Musik

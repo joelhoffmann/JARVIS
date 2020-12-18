@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="supremeBot:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/supremeBot_jar</output-path>
-    <root id="archive" name="supremeBot.jar">
+  <artifact type="jar" name="jarvis:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jarvis_jar</output-path>
+    <root id="archive" name="jarvis.jar">
       <element id="module-output" name="J.A.R.V.I.S" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar" path-in-jar="/" />
