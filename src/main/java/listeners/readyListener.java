@@ -14,6 +14,11 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class readyListener extends ListenerAdapter {
 
     public static void main(String[] args) throws LoginException {
@@ -31,14 +36,14 @@ public class readyListener extends ListenerAdapter {
             event.getJDA().getTextChannels().get(0).sendMessage(eb.build()).queue();
             System.out.println("Jarvis wants to setup");
         } else {
-            STATIC.IDofMusicControlChannel = event.getJDA().getTextChannelsByName("music_control", false).get(0).getId();
-            STATIC.IDofWelcomeChannel = event.getJDA().getTextChannelsByName("welcome", false).get(0).getId();
-            STATIC.IDofControlChannel = event.getJDA().getTextChannelsByName("jarvis_control", false).get(0).getId();
+            SimpleDateFormat formatter = new SimpleDateFormat(
+                    "yyyy.MM.dd - HH:mm:ss ");
+            Date currentTime = new Date();
+            System.out.println("going online:" + formatter.format(currentTime));
+
             event.getJDA().getTextChannelsByName("jarvis_control", false).get(0).sendMessage("-Online-\n" +
-                    "ID of music-control channel:  " + STATIC.IDofMusicControlChannel + "\n" +
-                    "ID of welcome channel:           " + STATIC.IDofWelcomeChannel + "\n" +
-                    "ID of jarvis.control channel:    " + STATIC.IDofControlChannel + "\n" +
-                    "-Status Ende -").queue();
+                    formatter.format(currentTime) +
+                    "\n-Status Ende -").queue();
             System.out.println("Jarvis is ready");
         }
         String out = "\nThis bot is running on following servers: \n";
@@ -61,6 +66,7 @@ public class readyListener extends ListenerAdapter {
         event.getGuild().getTextChannelsByName("welcome", false).get(0).sendMessage("welcome @" + event.getUser().getName()).complete();
 
     }
+
 
 
 }

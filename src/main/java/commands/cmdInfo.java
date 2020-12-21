@@ -16,10 +16,18 @@ public class cmdInfo implements command{
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Info!");
-        eb.addField("Setup", "Dieser Befehl erstellt alle Kanäle/Rollen auf dem Server, die der Bot braucht.", false);
-        eb.setColor(Color.red);
-        event.getChannel().sendMessage(eb.build()).queue();
+        if(event.getTextChannel().getName().contains("Allgemein")){
+            if(event.getGuild().getCategoriesByName("Jarvis", false).size() == 0){
+                eb.setTitle("Info");
+                eb.setDescription("Nutze den Befehl '.setup', damit Jarvis alles erstellen kann, was er zum Funktionieren brauch!");
+                eb.setColor(Color.red);
+                event.getChannel().sendMessage(eb.build()).queue();
+            }
+            else {
+
+            }
+
+        }
 
     }
 

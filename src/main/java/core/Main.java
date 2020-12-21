@@ -49,6 +49,7 @@ public class Main {
         commandHandler.commands.put("setup", new cmdSetup());
         commandHandler.commands.put("status", new cmdStatus());
         commandHandler.commands.put("join", new cmdAnmelden());
+        commandHandler.commands.put("clear", new cmdClearChannel());
         //commandHandler.commands.put("kick", new cmdKick());
         //commandHandler.commands.put("ban", new cmdBan());
         //commandHandler.commands.put("music", new cmdMusic());
