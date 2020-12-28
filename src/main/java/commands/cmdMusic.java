@@ -208,10 +208,10 @@ public class cmdMusic implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        //778708291135864832
-        if (event.getTextChannel().getId().equals(STATIC.IDofMusicControlChannel)) {
+        if (event.getTextChannel().getName().equals("music_control")) {
             return false;
         } else {
+            System.out.println("[INFO] Command Musik wurde nicht ausgeführt");
             return true;
         }
 
@@ -364,7 +364,7 @@ public class cmdMusic implements command {
 
     @Override
     public void executed(boolean sucess, MessageReceivedEvent event) {
-
+        System.out.println("[DONE]");
     }
 
     @Override

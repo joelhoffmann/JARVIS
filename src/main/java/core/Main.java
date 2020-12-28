@@ -50,8 +50,9 @@ public class Main {
         commandHandler.commands.put("status", new cmdStatus());
         commandHandler.commands.put("join", new cmdAnmelden());
         commandHandler.commands.put("clear", new cmdClearChannel());
+        commandHandler.commands.put("ttt", new cmd4g());
         //commandHandler.commands.put("kick", new cmdKick());
         //commandHandler.commands.put("ban", new cmdBan());
-        //commandHandler.commands.put("music", new cmdMusic());
+        commandHandler.commands.put("music", new cmdMusic());
     }
 }
