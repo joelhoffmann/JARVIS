@@ -96,7 +96,7 @@ public class cmdMusic implements command {
      * @param g Guild
      * @return TrackManager
      */
-    private TrackManager getManager(Guild g) {
+    public static TrackManager getManager(Guild g) {
         return PLAYERS.get(g).getValue();
     }
 
@@ -107,7 +107,7 @@ public class cmdMusic implements command {
      * @param g Guild
      * @return Boolean
      */
-    private boolean isIdle(Guild g) {
+    public static boolean isIdle(Guild g) {
         return !hasPlayer(g) || getPlayer(g).getPlayingTrack() == null;
     }
 
@@ -232,7 +232,7 @@ public class cmdMusic implements command {
                     input = "ytsearch: " + input;
 
                 loadTrack(input, event.getMember(), event.getMessage());
-                event.getGuild().getTextChannelById(STATIC.IDofControlChannel).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
+                event.getGuild().getTextChannelsByName("jarvis_control", false).get(0).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
 
             } else {
                 sendErrorMsg(event, "Please enter a valid source!_test");
@@ -315,7 +315,7 @@ public class cmdMusic implements command {
                             //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
                             .addField("by", info.author, false);
                     Message msg = event.getChannel().sendMessage(eb.build()).complete();
-                    msg.addReaction(STATIC.EmoteforBack).complete();
+                    msg.addReaction(STATIC.EmoteforPause).complete();
                     msg.addReaction(STATIC.EmoteforStop).complete();
                     msg.addReaction(STATIC.EmoteforSkip).complete();
                     msg.addReaction(STATIC.EmoteforShuffle).complete();
@@ -356,6 +356,24 @@ public class cmdMusic implements command {
                     else{
                         event.getTextChannel().sendMessage("Falsche Eingabe").queue();
                     }
+
+                    break;
+
+                case "test":
+
+
+                    String input3 = Arrays.stream(args).skip(1).map(s -> " " + s).collect(Collectors.joining()).substring(1);
+
+                    if (!(input3.contains("spotify.com"))){
+
+                    }
+
+                    String input = args[1];
+
+                    input = "ytsearch: " + input;
+
+                    loadTrack(input, event.getMember(), event.getMessage());
+                    event.getGuild().getTextChannelsByName("jarvis_control", false).get(0).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
 
                     break;
             }

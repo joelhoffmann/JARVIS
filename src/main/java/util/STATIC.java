@@ -7,15 +7,14 @@ public class STATIC {
     public static String IDofWelcomeChannel;
     public static String IDofControlChannel;
     public static String EmoteforSkip = "⏭";
-    public static String EmoteforBack = "⏮";
+    public static String EmoteforPause = "⏸";
     public static String EmoteforStop = "⏹";
     public static String EmoteforShuffle = "🔀";
     public static String EmoteforHoffi = "🦒";
     public static String EmoteforNXZAS8CA = "🐻";
     public static String EmoteforMalte = "🐺";
-    public static String Emoteforready = "✔";
+    public static String Emoteforready = "✅";
 
-    
     /*
     //Needs for controling the bot
     Channels:

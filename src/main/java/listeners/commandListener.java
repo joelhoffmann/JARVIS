@@ -18,12 +18,10 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static commands.cmdMusic.*;
 
 import java.awt.Color;
-import java.util.function.Predicate;
 
 
 public class commandListener extends ListenerAdapter {
@@ -57,11 +55,12 @@ public class commandListener extends ListenerAdapter {
                             //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
                             .addField("by", info.author, false);
 
-                    Message msg = event.getGuild().getTextChannelById(STATIC.IDofMusicControlChannel).sendMessage(eb.build()).complete();
-                    msg.addReaction(STATIC.EmoteforBack).complete();
+                    Message msg = event.getGuild().getTextChannelsByName("music_control", false).get(0).sendMessage(eb.build()).complete();
+                    msg.addReaction(STATIC.EmoteforPause).complete();
                     msg.addReaction(STATIC.EmoteforStop).complete();
                     msg.addReaction(STATIC.EmoteforSkip).complete();
                     msg.addReaction(STATIC.EmoteforShuffle).complete();
+                    player.setVolume(20);
                 }
             }
         }
@@ -141,6 +140,11 @@ public class commandListener extends ListenerAdapter {
                 System.out.println(requiredString);
                 event.getChannel().deleteMessageById(requiredString).complete();
             }
+        }
+        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
+
+            if (isIdle(guild)) return;
+            getManager(guild).shuffleQueue();
         }
 
     }
