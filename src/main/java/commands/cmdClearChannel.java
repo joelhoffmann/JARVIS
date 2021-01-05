@@ -2,6 +2,7 @@ package commands;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import util.STATIC;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class cmdClearChannel implements command{
     public boolean called(String[] args, MessageReceivedEvent event) {
         for(int i = 0; i < event.getMember().getRoles().size(); i++){
             String input = event.getMember().getRoles().get(i).toString();
-            if(input.contains("bot_control")){
+            if(input.contains(STATIC.NameofJarvisControlRole)){
                 return false;
             }
         }

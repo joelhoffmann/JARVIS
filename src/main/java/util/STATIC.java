@@ -2,18 +2,27 @@ package util;
 
 public class STATIC {
     public static String prefix = ".";
-    public static String[] PERMS = {"test"};
-    public static String IDofMusicControlChannel;
-    public static String IDofWelcomeChannel;
-    public static String IDofControlChannel;
+
+    public static String NameofMusicControlChannel = "music";
+    public static String NameofMusicControlRole = "Plattenpräsident";
+
+    public static String NameofWelcomeChannel = "welcome";
+    public static String NameofWelcomeRole = "welcome";
+
+    public static String NameOfCategorie = "Jarvis";
+    public static String NameofControlChannel = "jarvis";
+    public static String NameofJarvisControlRole = "alphatierchen";
+
     public static String EmoteforSkip = "⏭";
-    public static String EmoteforPause = "⏸";
+    public static String EmoteforPause = "⏯";
     public static String EmoteforStop = "⏹";
     public static String EmoteforShuffle = "🔀";
+
     public static String EmoteforHoffi = "🦒";
     public static String EmoteforNXZAS8CA = "🐻";
     public static String EmoteforMalte = "🐺";
     public static String Emoteforready = "✅";
+    public static String Emotefordelete = "❌";
 
     /*
     //Needs for controling the bot

@@ -4,12 +4,22 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import commands.cmdMusic;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import util.STATIC;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
+
+import static commands.cmdMusic.*;
 
 /**
  * Created by zekro on 18.06.2017 / 11:30
@@ -124,8 +134,22 @@ public class TrackManager extends AudioEventAdapter {
             Guild g = queue.poll().getAuthor().getGuild();
             if (queue.isEmpty())
                 g.getAudioManager().closeAudioConnection();
-            else
+            else{
+                eb = new EmbedBuilder();
+                eb.setColor(Color.blue)
+                        .setDescription("Aktueller Track")
+                        .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
+                        //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
+                        .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
+                List<Message> messages = g.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
+                Message msg = g.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
+                msg.addReaction(STATIC.EmoteforPause).complete();
+                msg.addReaction(STATIC.EmoteforStop).complete();
+                msg.addReaction(STATIC.EmoteforSkip).complete();
+                msg.addReaction(STATIC.EmoteforShuffle).complete();
+                System.out.println(TrackManager.queue.peek().getTrack().getInfo().title);
                 player.playTrack(queue.element().getTrack());
+            }
         }
     }
 }

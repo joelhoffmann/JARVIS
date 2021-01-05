@@ -41,7 +41,7 @@ public class readyListener extends ListenerAdapter {
             Date currentTime = new Date();
             System.out.println("going online:" + formatter.format(currentTime));
 
-            event.getJDA().getTextChannelsByName("jarvis_control", false).get(0).sendMessage("-Online-\n" +
+            event.getJDA().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("-Online-\n" +
                     formatter.format(currentTime) +
                     "\n-Status Ende -").queue();
             System.out.println("Jarvis is ready");
@@ -54,7 +54,7 @@ public class readyListener extends ListenerAdapter {
     }
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("welcome", false).get(0)).queue();
+        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName(STATIC.NameofWelcomeRole, false).get(0)).queue();
         event.getUser().openPrivateChannel().queue((channel) ->
         {
             channel.sendMessage("Hey " + event.getUser().getName() + "!" +
@@ -63,7 +63,7 @@ public class readyListener extends ListenerAdapter {
                     "\nSchau doch einfach mal in den welcome-Channel auf dem Server!").queue();
         });
 
-        event.getGuild().getTextChannelsByName("welcome", false).get(0).sendMessage("welcome @" + event.getUser().getName()).complete();
+        event.getGuild().getTextChannelsByName(STATIC.NameofWelcomeChannel, false).get(0).sendMessage("welcome @" + event.getUser().getName()).complete();
 
     }
 

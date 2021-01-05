@@ -2,16 +2,17 @@ package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
+import util.checkingSetup;
 
 public class cmdPing implements command {
 
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (event.getTextChannel().getName().equals("jarvis_control")) {
+        if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel)) {
             return false;
         } else {
-            System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
+            System.out.println("[INFO] Command Ping wurde nicht ausgefuehrt");
             return true;
         }
 
@@ -19,8 +20,9 @@ public class cmdPing implements command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
-
-        event.getChannel().sendMessage("Pong").queue();
+        System.out.println(checkingSetup.checkMissing(event.getGuild()));
+        System.out.println(checkingSetup.text);
+        //event.getChannel().sendMessage("Pong").queue();
 
     }
 

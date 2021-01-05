@@ -31,5 +31,10 @@
       <option name="name" value="JitPack" />
       <option name="url" value="https://jitpack.io" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="whatever" />
+      <option name="name" value="whatever" />
+      <option name="url" value="https://dl.bintray.com/natanbc/mave" />
+    </remote-repository>
   </component>
 </project>

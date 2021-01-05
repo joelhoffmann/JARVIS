@@ -17,7 +17,7 @@ public class cmdVoiceChannelDelete implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (event.getTextChannel().getName().equals("jarvis_control") || event.getMessage().getCategory().getName().equals(event.getAuthor().getName())) {
+        if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel) || event.getMessage().getCategory().getName().equals(event.getAuthor().getName())) {
             return false;
         } else {
             System.out.println("[INFO] Command Ping wurde nicht ausgeführt");

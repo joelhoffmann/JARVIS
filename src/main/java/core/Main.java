@@ -45,14 +45,18 @@ public class Main {
         commandHandler.commands.put("delete", new cmdVoiceChannelDelete());
         commandHandler.commands.put("add", new cmdPrivateAddRoleToUser());
         commandHandler.commands.put("remove", new cmdPrivateRemoveRoleFromUser());
-        //commandHandler.commands.put("info", new cmdInfo());
+        commandHandler.commands.put("info", new cmdInfo());
         commandHandler.commands.put("setup", new cmdSetup());
         commandHandler.commands.put("status", new cmdStatus());
         commandHandler.commands.put("join", new cmdAnmelden());
         commandHandler.commands.put("clear", new cmdClearChannel());
-        commandHandler.commands.put("ttt", new cmd4g());
+        //commandHandler.commands.put("ttt", new cmd4g());
         //commandHandler.commands.put("kick", new cmdKick());
         //commandHandler.commands.put("ban", new cmdBan());
         commandHandler.commands.put("music", new cmdMusic());
+        commandHandler.commands.put("queue", new cmdMusic());
+        commandHandler.commands.put("play", new cmdMusic());
+        commandHandler.commands.put("vol", new cmdMusic());
+        commandHandler.commands.put("volume", new cmdMusic());
     }
 }

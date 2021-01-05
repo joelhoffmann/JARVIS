@@ -7,7 +7,7 @@ import util.STATIC;
 public class cmdStatus implements command {
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (event.getTextChannel().getName().equals("jarvis_control")) {
+        if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel)) {
             return false;
         } else {
             System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
