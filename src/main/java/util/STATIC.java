@@ -1,5 +1,8 @@
 package util;
 
+import SpotifyAPI.ClientCredentialsExample;
+import com.wrapper.spotify.SpotifyApi;
+
 public class STATIC {
     public static String prefix = ".";
 
@@ -23,6 +26,9 @@ public class STATIC {
     public static String EmoteforMalte = "🐺";
     public static String Emoteforready = "✅";
     public static String Emotefordelete = "❌";
+
+    static ClientCredentialsExample TokenGenerator = new ClientCredentialsExample();
+    public static String accessToken = TokenGenerator.Token();
 
     /*
     //Needs for controling the bot

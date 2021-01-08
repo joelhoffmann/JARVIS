@@ -3,6 +3,7 @@ package listeners;
 import audioCore.TrackManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import commands.cmdMusic;
 import commands.cmdSetup;
 import core.commandHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -41,29 +42,12 @@ public class commandListener extends ListenerAdapter {
                 return;
             } else {
                 event.getMessage().delete().queue();
-                //event.getTextChannel().editMessageById(event.getTextChannel().getLatestMessageId(), "test").queue();
             }
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
-
         } else {
-
             if (event.getAuthor().isBot()) {
                 if (event.getMessage().getContentDisplay().contains("Ich spiele Musik")) {
-                    AudioTrack track = getPlayer(guild).getPlayingTrack();
-                    AudioTrackInfo info = track.getInfo();
-
-                    eb = new EmbedBuilder();
-                    eb.setColor(Color.blue)
-                            .setDescription("Aktueller Track")
-                            .addField("Title", info.title, false)
-                            //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
-                            .addField("by", info.author, false);
-
-                    Message msg = event.getGuild().getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).sendMessage(eb.build()).complete();
-                    msg.addReaction(STATIC.EmoteforPause).queue();
-                    msg.addReaction(STATIC.EmoteforStop).queue();
-                    msg.addReaction(STATIC.EmoteforSkip).queue();
-                    msg.addReaction(STATIC.EmoteforShuffle).queue();
+                    cmdMusic.infoMessage();
                 }
             }
         }
@@ -106,7 +90,6 @@ public class commandListener extends ListenerAdapter {
             if(checkingSetup.text.length() == 0){
                 System.out.println("emote true");
                 List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
-                //System.out.println(messages.get(0));
                 if (messages.size() > 1) {
                     for (int i = 0; i < (messages.size() - 1); i++) {
                         String t = messages.get(i).toString();
@@ -138,21 +121,7 @@ public class commandListener extends ListenerAdapter {
             for (int i = 1; i == 1; i--) {
                 skip(guild);
             }
-            eb = new EmbedBuilder();
-            eb.setColor(Color.blue)
-                    .setDescription("Aktueller Track")
-                    .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
-                    //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
-                    .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
-
-            List<Message> messages = event.getGuild().getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
-
-            Message msg = event.getChannel().editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
-            msg.addReaction(STATIC.EmoteforPause).complete();
-            msg.addReaction(STATIC.EmoteforStop).complete();
-            msg.addReaction(STATIC.EmoteforSkip).complete();
-            msg.addReaction(STATIC.EmoteforShuffle).complete();
-            System.out.println(TrackManager.queue.peek().getTrack().getInfo().title);
+            //cmdMusic.infoMessage();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
@@ -175,6 +144,4 @@ public class commandListener extends ListenerAdapter {
             System.out.println("Pause");
         }
     }
-
-
 }
