@@ -41,6 +41,16 @@ public class getTrackInfo {
         }
     }
 
+    public String getTrackName (){
+        try {
+            final Track track = getTrackRequest.execute();
+            return track.getName();
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
 
     public static void getTrack_Sync() {
         try {

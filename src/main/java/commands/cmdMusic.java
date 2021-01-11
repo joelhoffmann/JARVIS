@@ -1,5 +1,6 @@
 package commands;
 
+import SpotifyAPI.getTrackInfo;
 import SpotifyAPI.getTracksOfPlaylist;
 import audioCore.AudioInfo;
 import audioCore.PlayerSendHandler;
@@ -35,12 +36,14 @@ public class cmdMusic implements command {
     public static AudioPlayer player;
     public static List<String> trackSublist;
     public static ArrayList<String> Tracks;
+
     /**
      * Audio Manager als Audio-Stream-Recource deklarieren.
      */
     public cmdMusic() {
         AudioSourceManagers.registerRemoteSources(MANAGER);
     }
+
     /**
      * Erstellt einen Audioplayer und fügt diesen in die PLAYERS-Map ein.
      *
@@ -109,6 +112,9 @@ public class cmdMusic implements command {
      * @param author     Member, der den Track / die Playlist eingereiht hat
      * @param msg        Message des Contents
      */
+
+    public static int zw = 0;
+
     private void loadTrack(String identifier, Member author, Message msg) {
         Guild guild = author.getGuild();
         getPlayer(guild);
@@ -121,22 +127,28 @@ public class cmdMusic implements command {
                 player.setVolume(20);
                 infoMessage();
             }
+
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
-                if(msg.getContentDisplay().contains("spotify") && msg.getContentDisplay().contains("http") == true){
+                if (msg.getContentDisplay().contains("spotify") && msg.getContentDisplay().contains("playlist") && msg.getContentDisplay().contains("http") == true) {
                     getManager(guild).queue(playlist.getTracks().get(0), author);
                     player.setVolume(20);
-                }
-                else if (msg.getContentDisplay().contains(".play") && msg.getContentDisplay().contains("http") == false) {
+                } else if (msg.getContentDisplay().contains("spotify") && msg.getContentDisplay().contains("track") && msg.getContentDisplay().contains("http") == true) {
+                    getManager(guild).queue(playlist.getTracks().get(0), author);
+                    infoMessage();
+                    player.setVolume(20);
+                } else if (msg.getContentDisplay().contains(".play") && msg.getContentDisplay().contains("http") == false) {
                     getManager(guild).queue(playlist.getTracks().get(0), author);
                     player.setVolume(20);
+                    infoMessage();
                 } else {
                     for (int i = 0; i < (playlist.getTracks().size() > PLAYLIST_LIMIT ? PLAYLIST_LIMIT : playlist.getTracks().size()); i++) {
+                        System.out.println("...");
                         getManager(guild).queue(playlist.getTracks().get(i), author);
                     }
                     player.setVolume(20);
                     infoMessage();
-               }
+                }
             }
 
             @Override
@@ -151,12 +163,14 @@ public class cmdMusic implements command {
         });
 
     }
+
     /**
      * Stoppt den momentanen Track, worauf der nächste Track gespielt wird.
      */
     public static void skip(Guild g) {
         getPlayer(g).stopTrack();
     }
+
     /**
      * Erzeugt aus dem Timestamp in Millisekunden ein hh:mm:ss - Zeitformat.
      */
@@ -240,35 +254,36 @@ public class cmdMusic implements command {
         } else if (args[0].toLowerCase().startsWith("http")) {
             if (args.length == 1) {
                 String input = args[0];
-                if (input.startsWith("http://") || input.startsWith("https://")){
+                if (input.startsWith("http://") || input.startsWith("https://")) {
                     System.out.println("Passed http check");
                     //Youtube
-                    if(input.contains("youtube")){
+                    if (input.contains("youtube")) {
                         System.out.println("Youtube");
                         input = "ytsearch: " + input;
                         loadTrack(input, event.getMember(), event.getMessage());
                         //Spotify
-                    } else if(input.contains("spotify")){
+                    } else if (input.contains("spotify")) {
                         System.out.print("Spotify, ");
                         //Playlist???
-                        if(input.contains("playlist")){
+                        if (input.contains("playlist")) {
                             System.out.println("Playlist");
                             String[] test = input.split("/");
-                            String ID = test[test.length -1].substring(0, test[test.length -1].indexOf("?"));
+                            String ID = test[test.length - 1].substring(0, test[test.length - 1].indexOf("?"));
 
                             getTracksOfPlaylist TrackName = new getTracksOfPlaylist(ID);
                             Tracks = TrackName.getTrackNames();
-                            for(int i = 0; i < Tracks.size(); i++){
+                            for (int i = 0; i < Tracks.size(); i++) {
                                 System.out.println(Tracks.get(i));
                                 loadTrack(Tracks.get(i), event.getMember(), event.getMessage());
                             }
-                            //infoMessage();
-
                         }
-                        //https://open.spotify.com/track/4ftLrePOtK05zF12SUcnzM?si=zzCLiJ2DThKHMxa_NQYtfA
-                        else if(input.contains("track")){
+                        else if (input.contains("track")) {
                             System.out.println("Track");
-
+                            String[] test = input.split("/");
+                            String ID = test[test.length - 1].substring(0, test[test.length - 1].indexOf("?"));
+                            getTrackInfo Track = new getTrackInfo(ID);
+                            System.out.println(Track.getTrackName());
+                            loadTrack("ytsearch: " + Track.getTrackName(), event.getMember(), event.getMessage());
                         }
 
                     }
@@ -279,7 +294,7 @@ public class cmdMusic implements command {
                 return;
             }
 
-        } /*else if (event.getMessage().getContentDisplay().toLowerCase().contains(".play")) {
+        } else if (event.getMessage().getContentDisplay().toLowerCase().contains(".play")) {
             System.out.println("Youtube search: ");
             String input = "ytsearch: ";
             for (int i = 0; i < args.length; i++) {
@@ -287,7 +302,7 @@ public class cmdMusic implements command {
             }
             System.out.print(input);
             loadTrack(input, event.getMember(), event.getMessage());
-        } */else {
+        } else {
             switch (args[0].toLowerCase()) {
 
                 case "stop":
@@ -301,28 +316,7 @@ public class cmdMusic implements command {
                 case "now":
                 case "info":
                     if (isIdle(guild)) return;
-                    AudioTrack track = getPlayer(guild).getPlayingTrack();
-                    AudioTrackInfo info = track.getInfo();
-                    eb = new EmbedBuilder();
-                    eb.setColor(Color.blue)
-                            .setDescription("Aktueller Track")
-                            .addField("Title", info.title, false)
-                            //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
-                            .addField("by", info.author, false);
-                    Message msg = event.getChannel().sendMessage(eb.build()).complete();
-                    msg.addReaction(STATIC.EmoteforPause).complete();
-                    msg.addReaction(STATIC.EmoteforStop).complete();
-                    msg.addReaction(STATIC.EmoteforSkip).complete();
-                    msg.addReaction(STATIC.EmoteforShuffle).complete();
-                    break;
-
-                case "test":
-
-                    String input = args[1];
-                    input = "ytsearch: " + input;
-                    loadTrack(input, event.getMember(), event.getMessage());
-                    event.getGuild().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("Ich spiele Musik").queueAfter(5, TimeUnit.SECONDS);
-
+                    infoMessage();
                     break;
             }
         }
@@ -337,7 +331,8 @@ public class cmdMusic implements command {
     public String help() {
         return null;
     }
-    public static void infoMessage(){
+
+    public static void infoMessage() {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("Aktueller Track")
@@ -350,6 +345,7 @@ public class cmdMusic implements command {
         msg.addReaction(STATIC.EmoteforStop).complete();
         msg.addReaction(STATIC.EmoteforSkip).complete();
         msg.addReaction(STATIC.EmoteforShuffle).complete();
-        System.out.println(TrackManager.queue.peek().getTrack().getInfo().title);
+        msg.addReaction(STATIC.Emoteforlower).complete();
+        msg.addReaction(STATIC.Emoteforhigher).complete();
     }
 }

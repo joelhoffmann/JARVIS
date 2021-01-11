@@ -20,6 +20,9 @@ public class STATIC {
     public static String EmoteforPause = "⏯";
     public static String EmoteforStop = "⏹";
     public static String EmoteforShuffle = "🔀";
+    public static String Emoteforlower = "🔉";
+    public static String Emoteforhigher = "🔊";
+
 
     public static String EmoteforHoffi = "🦒";
     public static String EmoteforNXZAS8CA = "🐻";
@@ -29,24 +32,6 @@ public class STATIC {
 
     static ClientCredentialsExample TokenGenerator = new ClientCredentialsExample();
     public static String accessToken = TokenGenerator.Token();
-
-    /*
-    //Needs for controling the bot
-    Channels:
-    1. Botcontrol channel      => ID to -IDofControlChannel-
-    2. Musiccontrol channel    => ID to -IDofMusicControlChannel-
-    3. Welcome channel          => ID to -IDofMusicControlChannel-
-
-    Roles:
-    1. J.A.R.V.I.S              => will be autocreated if Jarvis
-    2. welcome                  => rights to see the welcome channel and nothing else
-    3. botcontrol               => rights to see and write into the Botcontrol channel
-
-
-    //
-     */
-
-
 
 
 }

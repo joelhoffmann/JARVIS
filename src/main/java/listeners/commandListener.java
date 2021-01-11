@@ -143,5 +143,19 @@ public class commandListener extends ListenerAdapter {
             }
             System.out.println("Pause");
         }
+        if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
+            event.getReaction().removeReaction(event.getUser()).queue();
+            int volume = player.getVolume();
+            volume = volume - 5;
+            player.setVolume(volume);
+            System.out.println("Volume set to: " + volume);
+        }
+        if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
+            event.getReaction().removeReaction(event.getUser()).queue();
+            int volume = player.getVolume();
+            volume = volume + 5;
+            player.setVolume(volume);
+            System.out.println("Volume set to: " + volume);
+        }
     }
 }
