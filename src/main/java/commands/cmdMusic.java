@@ -21,17 +21,17 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
 
-import java.awt.Color;
+import java.awt.*;
+import java.util.List;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class cmdMusic implements command {
 
     private static final int PLAYLIST_LIMIT = 1000;
     public static Guild guild;
-    private static final AudioPlayerManager MANAGER = new DefaultAudioPlayerManager();
-    private static final Map<Guild, Map.Entry<AudioPlayer, TrackManager>> PLAYERS = new HashMap<>();
+    private static AudioPlayerManager MANAGER = new DefaultAudioPlayerManager();
+    private static Map<Guild, Map.Entry<AudioPlayer, TrackManager>> PLAYERS = new HashMap<>();
     public static EmbedBuilder eb;
     public static AudioPlayer player;
     public static List<String> trackSublist;
@@ -125,7 +125,7 @@ public class cmdMusic implements command {
             public void trackLoaded(AudioTrack track) {
                 getManager(guild).queue(track, author);
                 player.setVolume(20);
-                infoMessage();
+                updateInfoMessage();
             }
 
             @Override
@@ -135,19 +135,19 @@ public class cmdMusic implements command {
                     player.setVolume(20);
                 } else if (msg.getContentDisplay().contains("spotify") && msg.getContentDisplay().contains("track") && msg.getContentDisplay().contains("http") == true) {
                     getManager(guild).queue(playlist.getTracks().get(0), author);
-                    infoMessage();
+                    updateInfoMessage();
                     player.setVolume(20);
                 } else if (msg.getContentDisplay().contains(".play") && msg.getContentDisplay().contains("http") == false) {
                     getManager(guild).queue(playlist.getTracks().get(0), author);
                     player.setVolume(20);
-                    infoMessage();
+                    updateInfoMessage();
                 } else {
                     for (int i = 0; i < (playlist.getTracks().size() > PLAYLIST_LIMIT ? PLAYLIST_LIMIT : playlist.getTracks().size()); i++) {
                         System.out.println("...");
                         getManager(guild).queue(playlist.getTracks().get(i), author);
                     }
                     player.setVolume(20);
-                    infoMessage();
+                    updateInfoMessage();
                 }
             }
 
@@ -167,8 +167,8 @@ public class cmdMusic implements command {
     /**
      * Stoppt den momentanen Track, worauf der nächste Track gespielt wird.
      */
-    public static void skip(Guild g) {
-        getPlayer(g).stopTrack();
+    public static void skip() {
+        player.stopTrack();
     }
 
     /**
@@ -273,11 +273,19 @@ public class cmdMusic implements command {
                             getTracksOfPlaylist TrackName = new getTracksOfPlaylist(ID);
                             Tracks = TrackName.getTrackNames();
                             for (int i = 0; i < Tracks.size(); i++) {
-                                System.out.println(Tracks.get(i));
                                 loadTrack(Tracks.get(i), event.getMember(), event.getMessage());
                             }
-                        }
-                        else if (input.contains("track")) {
+                            int waiting = 0;
+                            while (getManager(guild).getQueue().isEmpty()) {
+                                if (waiting == 0) {
+                                    System.out.print("Waiting for Queue...");
+                                    waiting = 1;
+                                }
+                            }
+                            System.out.println("FINISHED");
+                            updateInfoMessage();
+                            //Track
+                        } else if (input.contains("track")) {
                             System.out.println("Track");
                             String[] test = input.split("/");
                             String ID = test[test.length - 1].substring(0, test[test.length - 1].indexOf("?"));
@@ -309,14 +317,17 @@ public class cmdMusic implements command {
                 case "delete":
                     if (isIdle(guild)) return;
                     getManager(guild).purgeQueue();
-                    skip(guild);
+                    skip();
                     guild.getAudioManager().closeAudioConnection();
                     break;
 
                 case "now":
                 case "info":
                     if (isIdle(guild)) return;
-                    infoMessage();
+                    sendInfoMessage();
+                    break;
+                case "skip":
+                    skip();
                     break;
             }
         }
@@ -332,7 +343,7 @@ public class cmdMusic implements command {
         return null;
     }
 
-    public static void infoMessage() {
+    public static void updateInfoMessage() {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("Aktueller Track")
@@ -340,7 +351,28 @@ public class cmdMusic implements command {
                 //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
                 .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
+        System.out.println(guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().getRetrievedHistory().size());
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
+        msg.addReaction(STATIC.EmoteforPause).complete();
+        msg.addReaction(STATIC.EmoteforStop).complete();
+        msg.addReaction(STATIC.EmoteforSkip).complete();
+        msg.addReaction(STATIC.EmoteforShuffle).complete();
+        msg.addReaction(STATIC.Emoteforlower).complete();
+        msg.addReaction(STATIC.Emoteforhigher).complete();
+
+    }
+
+    public static void sendInfoMessage() {
+        eb = new EmbedBuilder();
+        eb.setColor(Color.blue)
+                .setDescription("Aktueller Track")
+                .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
+                //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
+                .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
+        List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
+        System.out.println(guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().getRetrievedHistory().size());
+
+        Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).sendMessage(eb.build()).complete();
         msg.addReaction(STATIC.EmoteforPause).complete();
         msg.addReaction(STATIC.EmoteforStop).complete();
         msg.addReaction(STATIC.EmoteforSkip).complete();

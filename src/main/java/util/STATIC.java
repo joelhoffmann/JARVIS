@@ -8,13 +8,16 @@ public class STATIC {
 
     public static String NameofMusicControlChannel = "music";
     public static String NameofMusicControlRole = "Plattenpräsident";
+    public static String ColorofMusicControlRole = "#00ffff";
 
     public static String NameofWelcomeChannel = "welcome";
-    public static String NameofWelcomeRole = "welcome";
+    public static String NameofWelcomeRole = "embrio";
+    public static String ColorofWelcomeRole = "#ffffff";
 
     public static String NameOfCategorie = "Jarvis";
     public static String NameofControlChannel = "jarvis";
     public static String NameofJarvisControlRole = "alphatierchen";
+    public static String ColorofJarvisControlRole = "#ff00ff";
 
     public static String EmoteforSkip = "⏭";
     public static String EmoteforPause = "⏯";

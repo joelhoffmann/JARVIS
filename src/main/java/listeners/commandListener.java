@@ -44,12 +44,6 @@ public class commandListener extends ListenerAdapter {
                 event.getMessage().delete().queue();
             }
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
-        } else {
-            if (event.getAuthor().isBot()) {
-                if (event.getMessage().getContentDisplay().contains("Ich spiele Musik")) {
-                    cmdMusic.infoMessage();
-                }
-            }
         }
     }
 
@@ -119,14 +113,14 @@ public class commandListener extends ListenerAdapter {
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             for (int i = 1; i == 1; i--) {
-                skip(guild);
+                skip();
             }
             //cmdMusic.infoMessage();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             getManager(guild).purgeQueue();
-            skip(guild);
+            skip();
             guild.getAudioManager().closeAudioConnection();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {

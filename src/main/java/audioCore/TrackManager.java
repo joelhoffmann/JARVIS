@@ -132,22 +132,13 @@ public class TrackManager extends AudioEventAdapter {
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         if(queue.poll() != null) {
             Guild g = queue.poll().getAuthor().getGuild();
-            if (queue.isEmpty())
+            if (queue.isEmpty()){
+                System.out.println("-");
                 g.getAudioManager().closeAudioConnection();
+            }
             else{
-                eb = new EmbedBuilder();
-                eb.setColor(Color.blue)
-                        .setDescription("Aktueller Track")
-                        .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
-                        //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
-                        .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
-                List<Message> messages = g.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
-                Message msg = g.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
-                msg.addReaction(STATIC.EmoteforPause).complete();
-                msg.addReaction(STATIC.EmoteforStop).complete();
-                msg.addReaction(STATIC.EmoteforSkip).complete();
-                msg.addReaction(STATIC.EmoteforShuffle).complete();
-                System.out.println(TrackManager.queue.peek().getTrack().getInfo().title);
+                System.out.println("+");
+                updateInfoMessage();
                 player.playTrack(queue.element().getTrack());
             }
         }
