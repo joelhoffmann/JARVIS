@@ -5,6 +5,7 @@ import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import org.apache.hc.core5.http.ParseException;
+import util.SECRETS;
 import util.STATIC;
 
 import java.io.IOException;
@@ -13,12 +14,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class ClientCredentialsExample {
-    private static final String clientId = "42e28ac68af041068f3bedc2c7cc4395";
-    private static final String clientSecret = "9d278282401b4f64b1f66c09733e524c";
 
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(clientId)
-            .setClientSecret(clientSecret)
+            .setClientId(SECRETS.clientId)
+            .setClientSecret(SECRETS.clientSecret)
             .build();
     private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
             .build();

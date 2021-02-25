@@ -1,6 +1,7 @@
 package listeners;
 
 import audioCore.TrackManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.cmdMusic;
@@ -120,6 +121,7 @@ public class commandListener extends ListenerAdapter {
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             getManager(guild).purgeQueue();
+            MANAGER = new DefaultAudioPlayerManager();
             skip();
             guild.getAudioManager().closeAudioConnection();
         }

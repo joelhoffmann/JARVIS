@@ -14,7 +14,7 @@ public class checkingSetup {
     public static String text;
 
     public checkingSetup (){
-
+        List<String> doings = new ArrayList<>();
     }
     public static boolean checkMissing(Guild g){
         text = "";

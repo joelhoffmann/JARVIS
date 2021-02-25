@@ -27,10 +27,4 @@ public class commandHandler {
         }
         System.out.println("------------------------------------------------");
     }
-
-    public static void test (commandParser.commandContainer cmd){
-        commands.get("").action(cmd.args, cmd.event);
-
-    }
-
 }

@@ -30,7 +30,7 @@ public class cmdMusic implements command {
 
     private static final int PLAYLIST_LIMIT = 1000;
     public static Guild guild;
-    private static AudioPlayerManager MANAGER = new DefaultAudioPlayerManager();
+    public static AudioPlayerManager MANAGER = new DefaultAudioPlayerManager();
     private static Map<Guild, Map.Entry<AudioPlayer, TrackManager>> PLAYERS = new HashMap<>();
     public static EmbedBuilder eb;
     public static AudioPlayer player;
@@ -113,13 +113,13 @@ public class cmdMusic implements command {
      * @param msg        Message des Contents
      */
 
-    public static int zw = 0;
 
     private void loadTrack(String identifier, Member author, Message msg) {
         Guild guild = author.getGuild();
         getPlayer(guild);
 
         MANAGER.setFrameBufferDuration(10000);
+        //Todo: Fix this override
         MANAGER.loadItemOrdered(guild, identifier, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {

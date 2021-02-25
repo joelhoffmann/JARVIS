@@ -41,8 +41,8 @@ public class Main {
 
     public static void addCommand() {
         commandHandler.commands.put("ping", new cmdPing());
-        commandHandler.commands.put("create", new cmdVoiceChannelCreate());
-        commandHandler.commands.put("delete", new cmdVoiceChannelDelete());
+        //commandHandler.commands.put("create", new cmdVoiceChannelCreate());
+        //commandHandler.commands.put("delete", new cmdVoiceChannelDelete());
         commandHandler.commands.put("add", new cmdPrivateAddRoleToUser());
         commandHandler.commands.put("remove", new cmdPrivateRemoveRoleFromUser());
         commandHandler.commands.put("info", new cmdInfo());
