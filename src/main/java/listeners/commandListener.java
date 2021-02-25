@@ -1,10 +1,6 @@
 package listeners;
 
-import audioCore.TrackManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import commands.cmdMusic;
 import commands.cmdSetup;
 import core.commandHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -52,7 +48,6 @@ public class commandListener extends ListenerAdapter {
         if (event.getUser().isBot()) return;
         //Rollenzuweisung
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforHoffi)) {
-            System.out.println("emote true");
             String[] vergl = {"Hoffis"};
             if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
                 event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
@@ -62,7 +57,6 @@ public class commandListener extends ListenerAdapter {
             }
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforNXZAS8CA)) {
-            System.out.println("emote true");
             String[] vergl = {"Simons"};
             if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
                 event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Simons", false).get(0)).queue();
@@ -72,7 +66,6 @@ public class commandListener extends ListenerAdapter {
             }
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforMalte)) {
-            System.out.println("emote true");
             String[] vergl = {"Maltes"};
             if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
                 event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Maltes", false).get(0)).queue();
@@ -83,13 +76,11 @@ public class commandListener extends ListenerAdapter {
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforready)) {
             if(checkingSetup.text.length() == 0){
-                System.out.println("emote true");
                 List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
                 if (messages.size() > 1) {
                     for (int i = 0; i < (messages.size() - 1); i++) {
                         String t = messages.get(i).toString();
                         String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
-                        System.out.println(requiredString);
                         event.getChannel().deleteMessageById(requiredString).queue();
                     }
                 }
@@ -120,15 +111,11 @@ public class commandListener extends ListenerAdapter {
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            getManager(guild).purgeQueue();
-            MANAGER = new DefaultAudioPlayerManager();
-            skip();
-            guild.getAudioManager().closeAudioConnection();
+            stop();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            if (isIdle(guild)) return;
-            getManager(guild).shuffleQueue();
+            shuffle();
         }
         if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
             event.getReaction().removeReaction(event.getUser()).queue();
@@ -137,21 +124,18 @@ public class commandListener extends ListenerAdapter {
             }else{
                 player.setPaused(true);
             }
-            System.out.println("Pause");
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             int volume = player.getVolume();
             volume = volume - 5;
             player.setVolume(volume);
-            System.out.println("Volume set to: " + volume);
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             int volume = player.getVolume();
             volume = volume + 5;
             player.setVolume(volume);
-            System.out.println("Volume set to: " + volume);
         }
     }
 }

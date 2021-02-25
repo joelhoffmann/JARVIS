@@ -10,12 +10,6 @@ public class commandHandler {
     public static HashMap<String, command> commands = new HashMap<>();
 
     public static void handleCommand(commandParser.commandContainer cmd) {
-        System.out.println("------------------------------------------------");
-        System.out.println("[RAW] " + cmd.raw);
-        //System.out.println(cmd.beheaded);
-        //System.out.println(cmd.splitBeheaded);
-        //System.out.println(cmd.invoke);
-        //System.out.println(cmd.args);
         if (commands.containsKey(cmd.invoke)) {
             boolean safe = commands.get(cmd.invoke).called(cmd.args, cmd.event);
             if (!safe) {
@@ -25,6 +19,5 @@ public class commandHandler {
         } else {
             System.out.println("Du hast den Token vergessen/ flaschen befehl verwendet");
         }
-        System.out.println("------------------------------------------------");
     }
 }
