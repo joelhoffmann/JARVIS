@@ -28,15 +28,15 @@ import java.util.stream.Collectors;
 
 public class cmdMusic implements command {
 
-    private static final int PLAYLIST_LIMIT = 1000;
+    private final int PLAYLIST_LIMIT = 1000;
     public static Guild guild;
     public static AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
     private static Map<Guild, Map.Entry<AudioPlayer, TrackManager>> PLAYERS = new HashMap<>();
     public static AudioPlayer player;
-    public static List<String> trackSublist;
-    public static ArrayList<String> Tracks;
+    public List<String> trackSublist;
+    public ArrayList<String> Tracks;
 
-    public static EmbedBuilder eb;
+    public EmbedBuilder eb;
 
 
     //Audio Manager als Audio-Stream-Recource deklarieren
@@ -45,7 +45,7 @@ public class cmdMusic implements command {
     }
 
     //Erstellt einen Audioplayer und fügt diesen in die PLAYERS-Map ein.
-    public static AudioPlayer createPlayer(Guild g) {
+    public AudioPlayer createPlayer(Guild g) {
         player = playerManager.createPlayer();
         TrackManager m = new TrackManager(player);
         player.addListener(m);
@@ -55,13 +55,13 @@ public class cmdMusic implements command {
     }
 
     //Returnt, ob die Guild einen Eintrag in der PLAYERS-Map hat.
-    public static boolean hasPlayer(Guild g) {
+    public boolean hasPlayer(Guild g) {
         return PLAYERS.containsKey(g);
     }
 
     //Returnt den momentanen Player der Guild aus der PLAYERS-Map,
     //oder erstellt einen neuen Player für die Guild.
-    public static AudioPlayer getPlayer(Guild g) {
+    public AudioPlayer getPlayer(Guild g) {
         if (hasPlayer(g))
             return PLAYERS.get(g).getKey();
         else
@@ -70,13 +70,13 @@ public class cmdMusic implements command {
 
     //Returnt den momentanen TrackManager der Guild aus der PLAYERS-Map.
 
-    public static TrackManager getManager(Guild g) {
+    public TrackManager getManager(Guild g) {
         return PLAYERS.get(g).getValue();
     }
 
     //Returnt, ob die Guild einen Player hat oder ob der momentane Player
     //gerade einen Track spielt.
-    public static boolean isIdle(Guild g) {
+    public boolean isIdle(Guild g) {
         return !hasPlayer(g) || getPlayer(g).getPlayingTrack() == null;
     }
 
@@ -131,18 +131,37 @@ public class cmdMusic implements command {
 
 
     //Stoppt den momentanen Track, worauf der nächste Track gespielt wird.
-    public static void skip() {
+    public void skip() {
         player.stopTrack();
     }
 
-    public static void stop (){
+    public void stop(){
         getManager(guild).purgeQueue();
         skip();
         guild.getAudioManager().closeAudioConnection();
+
+        System.gc();
     }
-    public static void shuffle (){
+    public void shuffle(){
         if (isIdle(guild)) return;
         getManager(guild).shuffleQueue();
+    }
+    public void pause(){
+        if(player.isPaused()){
+            player.setPaused(false);
+        }else{
+            player.setPaused(true);
+        }
+    }
+    public void vol_lower(){
+        int volume = player.getVolume();
+        volume = volume - 5;
+        player.setVolume(volume);
+    }
+    public void vol_higher(){
+        int volume = player.getVolume();
+        volume = volume + 5;
+        player.setVolume(volume);
     }
 
 
@@ -272,10 +291,7 @@ public class cmdMusic implements command {
 
                 case "stop":
                 case "delete":
-                    if (isIdle(guild)) return;
-                    getManager(guild).purgeQueue();
-                    skip();
-                    guild.getAudioManager().closeAudioConnection();
+                    stop();
                     break;
 
                 case "now":
@@ -299,7 +315,7 @@ public class cmdMusic implements command {
         return null;
     }
 
-    public static void updateInfoMessage() {
+    public void updateInfoMessage() {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("Aktueller Track")
@@ -317,7 +333,7 @@ public class cmdMusic implements command {
 
     }
 
-    public static void sendInfoMessage() {
+    public void sendInfoMessage() {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("Aktueller Track")

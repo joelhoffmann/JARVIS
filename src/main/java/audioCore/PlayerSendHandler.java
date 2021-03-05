@@ -6,13 +6,6 @@ import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by zekro on 18.06.2017 / 11:45
- * supremeBot.audioCore
- * dev.zekro.de - github.zekro.de
- * © zekro 2017
- */
-
 public class PlayerSendHandler implements AudioSendHandler {
 
 

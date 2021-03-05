@@ -1,6 +1,7 @@
 package listeners;
 
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import commands.cmdMusic;
 import commands.cmdSetup;
 import core.commandHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -27,7 +28,7 @@ import java.awt.Color;
 
 public class commandListener extends ListenerAdapter {
 
-    public static void main(String[] args) throws LoginException {
+    public void main(String[] args) throws LoginException {
         JDABuilder.createLight(SECRETS.Token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
                 .addEventListeners(new readyListener())
                 .build();
@@ -104,38 +105,35 @@ public class commandListener extends ListenerAdapter {
         //Musik
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            for (int i = 1; i == 1; i--) {
-                skip();
-            }
-            //cmdMusic.infoMessage();
+            cmdMusic test = new cmdMusic();
+            test.skip();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            stop();
+            cmdMusic test = new cmdMusic();
+            test.stop();
+
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            shuffle();
+            cmdMusic test = new cmdMusic();
+            test.shuffle();
+
         }
         if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
             event.getReaction().removeReaction(event.getUser()).queue();
-            if(player.isPaused()){
-                player.setPaused(false);
-            }else{
-                player.setPaused(true);
-            }
+            cmdMusic test = new cmdMusic();
+            test.pause();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            int volume = player.getVolume();
-            volume = volume - 5;
-            player.setVolume(volume);
+            cmdMusic test = new cmdMusic();
+            test.vol_lower();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            int volume = player.getVolume();
-            volume = volume + 5;
-            player.setVolume(volume);
+            cmdMusic test = new cmdMusic();
+            test.vol_higher();
         }
     }
 }
