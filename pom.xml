@@ -113,7 +113,16 @@
                     <target>9</target>
                 </configuration>
             </plugin>
+		 <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <configuration>
+                <mainClass>core.Main</mainClass>
+            </configuration>
+        </plugin>
         </plugins>
+
     </build>
 
 </project>
