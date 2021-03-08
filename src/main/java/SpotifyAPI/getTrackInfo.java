@@ -8,7 +8,6 @@ import com.wrapper.spotify.requests.data.tracks.GetTrackRequest;
 import org.apache.hc.core5.http.ParseException;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -26,7 +25,6 @@ public class getTrackInfo {
                 .setAccessToken(accessToken)
                 .build();
         getTrackRequest = spotifyApi.getTrack(id)
-//          .market(CountryCode.SE)
                 .build();
     }
 

@@ -3,6 +3,7 @@ package commands;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class cmdKick implements command {
+    //TODO: class is not in use and could be deleted.
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
         return false;
@@ -10,9 +11,6 @@ public class cmdKick implements command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
-        System.out.println("Getting kicked");
-        //event.getGuild().getMembersByName("Pinky", false).get(0).kick().queue();
-        //event.getGuild().getMembersByName("Pinky", false).get(0).kick().queue();
     }
 
     @Override

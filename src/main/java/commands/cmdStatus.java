@@ -10,7 +10,7 @@ public class cmdStatus implements command {
         if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel)) {
             return false;
         } else {
-            System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
+
             return true;
         }
     }
