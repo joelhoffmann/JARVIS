@@ -1,7 +1,5 @@
 package commands;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.JoinMessageContent;
 import util.STATIC;
@@ -14,7 +12,6 @@ public class cmdAnmelden implements command {
         if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel)) {
             return false;
         } else {
-            System.out.println("[INFO] Command Ping wurde nicht ausgeführt");
             return true;
         }
     }
@@ -27,7 +24,6 @@ public class cmdAnmelden implements command {
 
     @Override
     public void executed(boolean success, MessageReceivedEvent event) {
-        System.out.println("[INFO] Command join wurde ausgeführt");
     }
 
     @Override

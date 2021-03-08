@@ -6,7 +6,7 @@ import com.wrapper.spotify.model_objects.specification.Paging;
 import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
 import com.wrapper.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import org.apache.hc.core5.http.ParseException;
-import util.STATIC;
+
 
 import java.io.IOException;
 import java.util.concurrent.CancellationException;
@@ -27,10 +27,6 @@ public class SearchPlaylist{
             .setAccessToken(accessToken)
             .build();
     private static final SearchPlaylistsRequest searchPlaylistsRequest = spotifyApi.searchPlaylists(q)
-//          .market(CountryCode.SE)
-//          .limit(10)
-//          .offset(0)
-//          .includeExternal("audio")
             .build();
 
 

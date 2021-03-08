@@ -12,7 +12,6 @@ public class cmdPing implements command {
         if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel)) {
             return false;
         } else {
-            System.out.println("[INFO] Command Ping wurde nicht ausgefuehrt");
             return true;
         }
 
@@ -20,15 +19,14 @@ public class cmdPing implements command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) {
-        System.out.println(checkingSetup.checkMissing(event.getGuild()));
-        System.out.println(checkingSetup.text);
-        //event.getChannel().sendMessage("Pong").queue();
+
+        event.getChannel().sendMessage("Pong").queue();
 
     }
 
     @Override
     public void executed(boolean success, MessageReceivedEvent event) {
-        System.out.println("[INFO] Command Ping wurde ausgeführt");
+
     }
 
     @Override

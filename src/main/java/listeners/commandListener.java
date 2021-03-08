@@ -1,6 +1,6 @@
 package listeners;
 
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+
 import commands.cmdMusic;
 import commands.cmdSetup;
 import core.commandHandler;
@@ -20,9 +20,6 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.List;
-
-import static commands.cmdMusic.*;
-
 import java.awt.Color;
 
 

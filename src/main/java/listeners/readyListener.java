@@ -14,10 +14,10 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 public class readyListener extends ListenerAdapter {
 
@@ -34,8 +34,9 @@ public class readyListener extends ListenerAdapter {
             eb.addField("Setup", "Dieser Befehl erstellt alle Kanäle/Rollen auf dem Server, die der Bot braucht.", false);
             eb.setColor(Color.red);
             event.getJDA().getTextChannels().get(0).sendMessage(eb.build()).queue();
-            System.out.println("Jarvis wants to setup");
+
         } else {
+            //TODO: needs to be done in slf4j
             SimpleDateFormat formatter = new SimpleDateFormat(
                     "yyyy.MM.dd - HH:mm:ss ");
             Date currentTime = new Date();

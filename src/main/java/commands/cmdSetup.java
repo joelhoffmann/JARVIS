@@ -12,6 +12,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class cmdSetup implements command {
+    //TODO: needs also a rework
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
         return false;
@@ -93,8 +94,7 @@ public class cmdSetup implements command {
         //Ending + Output ------------------------------------------------------------------------------
         if (doings.size() == 0) {
             g.getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("-Jarvis is already good to go-").queue();
-            System.out.println("Jarvis is already good to go");
-        }
+            }
         if (doings.size() > 0) {
             String text = "";
             for (int i = 0; i < doings.size(); i++) {
@@ -103,7 +103,6 @@ public class cmdSetup implements command {
             g.getJDA().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("-Online-\n" +
                     "doings:" + text).queue();
             g.getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("-Jarvis is ready-").queue();
-            System.out.println("Jarvis is ready");
-        }
+            }
     }
 }

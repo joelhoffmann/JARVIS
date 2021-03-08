@@ -27,6 +27,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class cmdMusic implements command {
+    //TODO: needs an urgent rework!
 
     private final int PLAYLIST_LIMIT = 1000;
     public static Guild guild;
@@ -166,7 +167,7 @@ public class cmdMusic implements command {
 
 
     // Erzeugt aus dem Timestamp in Millisekunden ein hh:mm:ss - Zeitformat.
-
+    //TODO: method is not in usage, could be deleted or used to display remaining time of the playing track.
     private String getTimestamp(long milis) {
         long seconds = milis / 1000;
         long hours = Math.floorDiv(seconds, 3600);
@@ -185,6 +186,7 @@ public class cmdMusic implements command {
     }
 
     //Sendet eine Embed-Message in der Farbe Rot mit eingegebenen Content.
+    //TODO: method is not used.
     private void sendErrorMsg(MessageReceivedEvent event, String content) {
         event.getChannel().sendMessage(
                 new EmbedBuilder()
