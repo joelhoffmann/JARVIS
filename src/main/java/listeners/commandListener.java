@@ -26,7 +26,8 @@ import java.awt.Color;
 public class commandListener extends ListenerAdapter {
 
     public void main(String[] args) throws LoginException {
-        JDABuilder.createLight(SECRETS.Token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+        SECRETS secrets = new SECRETS();
+        JDABuilder.createLight(secrets.getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
                 .addEventListeners(new readyListener())
                 .build();
     }

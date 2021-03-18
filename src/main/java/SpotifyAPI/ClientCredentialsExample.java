@@ -14,10 +14,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class ClientCredentialsExample {
-
+    static SECRETS secrets = new SECRETS();
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(SECRETS.clientId)
-            .setClientSecret(SECRETS.clientSecret)
+            .setClientId(secrets.getClientId())
+            .setClientSecret(secrets.getClientSecret())
             .build();
     private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
             .build();
@@ -33,11 +33,9 @@ public class ClientCredentialsExample {
     public static void clientCredentials_Sync() {
         try {
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
-
             // Set access token for further "spotifyApi" object usage
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
-
             System.out.println("Expires in: " + clientCredentials.getExpiresIn());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());

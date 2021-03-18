@@ -1,10 +1,6 @@
 package core;
 
 import commands.*;
-import commands.ChannelCommand.cmdPrivateAddRoleToUser;
-import commands.ChannelCommand.cmdPrivateRemoveRoleFromUser;
-import commands.ChannelCommand.cmdVoiceChannelCreate;
-import commands.ChannelCommand.cmdVoiceChannelDelete;
 import listeners.commandListener;
 import listeners.readyListener;
 import net.dv8tion.jda.api.JDABuilder;
@@ -19,8 +15,9 @@ public class Main {
     public static JDABuilder builder;
 
     public static void main(String[] args) {
-        builder = JDABuilder.createDefault(SECRETS.Token);
-        builder.setToken(SECRETS.Token);
+        SECRETS secrets = new SECRETS();
+        builder = JDABuilder.createDefault(secrets.getToken());
+        builder.setToken(secrets.getToken());
         builder.setStatus(OnlineStatus.ONLINE);
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.setActivity(Activity.playing("mit deinen Daten"));
