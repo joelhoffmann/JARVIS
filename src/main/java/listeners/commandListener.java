@@ -103,35 +103,35 @@ public class commandListener extends ListenerAdapter {
         //Musik
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic test = new cmdMusic();
-            test.skip();
+            cmdMusic musicControler = new cmdMusic();
+            musicControler.skip();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic test = new cmdMusic();
-            test.stop();
+            cmdMusic musicControler = new cmdMusic();
+            musicControler.stop();
 
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic test = new cmdMusic();
-            test.shuffle();
+            cmdMusic musicControler = new cmdMusic();
+            musicControler.shuffle();
 
         }
         if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic test = new cmdMusic();
-            test.pause();
+            cmdMusic musicControler = new cmdMusic();
+            musicControler.pause();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic test = new cmdMusic();
-            test.vol_lower();
+            cmdMusic musicControler = new cmdMusic();
+            musicControler.vol_lower();
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic test = new cmdMusic();
-            test.vol_higher();
+            cmdMusic musicControler = new cmdMusic();
+            musicControler.vol_higher();
         }
     }
 }
