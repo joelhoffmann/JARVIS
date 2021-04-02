@@ -21,7 +21,6 @@ public class STATIC {
     public static String Emoteforlower = "🔉";
     public static String Emoteforhigher = "🔊";
 
-
     public static String EmoteforHoffi = "🦒";
     public static String EmoteforNXZAS8CA = "🐻";
     public static String EmoteforMalte = "🐺";
