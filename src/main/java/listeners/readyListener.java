@@ -57,7 +57,6 @@ public class readyListener extends ListenerAdapter {
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
         System.out.println("test................................");
-        event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById("827485243627929610")).complete();
         event.getUser().openPrivateChannel().queue((channel) ->
         {
             channel.sendMessage("Hey " + event.getUser().getName() + "!" +
