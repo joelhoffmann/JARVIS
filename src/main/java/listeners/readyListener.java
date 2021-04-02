@@ -42,7 +42,6 @@ public class readyListener extends ListenerAdapter {
                     "yyyy.MM.dd - HH:mm:ss ");
             Date currentTime = new Date();
             System.out.println("going online:" + formatter.format(currentTime));
-
             event.getJDA().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("-Online-\n" +
                     formatter.format(currentTime) +
                     "\n-Status Ende -").queue();
@@ -56,6 +55,7 @@ public class readyListener extends ListenerAdapter {
     }
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
+        event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById("827485243627929610")).complete();
         System.out.println("test................................");
         event.getUser().openPrivateChannel().queue((channel) ->
         {
@@ -65,7 +65,4 @@ public class readyListener extends ListenerAdapter {
                     "\nViel Spaß auf dem Server!!!").queue();
         });
     }
-
-
-
 }

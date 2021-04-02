@@ -28,7 +28,7 @@
         <repository>
             <id>whatever</id>
             <name>whatever</name>
-            <url>https://dl.bintray.com/natanbc/mave</url>
+            <url>https://dl.bintray.com/natanbc/maven</url>
         </repository>
     </repositories>
 
@@ -74,11 +74,6 @@
             <version>LATEST</version>
         </dependency>
         <dependency>
-            <groupId>com.sedmelluq</groupId>
-            <artifactId>lavaplayer</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.30</version>
@@ -93,14 +88,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.8-dmr</version>
         </dependency>
-        <!--
-            NEEDED FOR ANOTHER COMMAND NOT IMPLEMENTED YET
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.10.3</version>
-        </dependency>
-        -->
     </dependencies>
 
     <build>
