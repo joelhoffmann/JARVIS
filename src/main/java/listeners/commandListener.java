@@ -2,7 +2,6 @@ package listeners;
 
 
 import commands.cmdMusic;
-import commands.cmdSetup;
 import core.commandHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDABuilder;

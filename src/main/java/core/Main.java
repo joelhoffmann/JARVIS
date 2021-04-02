@@ -39,9 +39,7 @@ public class Main {
     public static void addCommand() {
         commandHandler.commands.put("ping", new cmdPing());
         commandHandler.commands.put("info", new cmdInfo());
-        commandHandler.commands.put("setup", new cmdSetup());
         commandHandler.commands.put("status", new cmdStatus());
-        commandHandler.commands.put("join", new cmdAnmelden());
         commandHandler.commands.put("clear", new cmdClearChannel());
         commandHandler.commands.put("music", new cmdMusic());
         commandHandler.commands.put("queue", new cmdMusic());

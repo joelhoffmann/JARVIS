@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import static util.STATIC.accessToken;
 
 public class getTracksOfPlaylist {
-    private static String playlistId = "";
-
-    private static SpotifyApi spotifyApi = null;
-    private static GetPlaylistRequest getPlaylistRequest = null;
+    private static String playlistId;
+    private static SpotifyApi spotifyApi;
+    private static GetPlaylistRequest getPlaylistRequest;
 
     public getTracksOfPlaylist(String ID) {
         playlistId = ID;

@@ -17,7 +17,6 @@ public class STATIC {
     public static String NameOfCategorie = "Jarvis";
     public static String NameofControlChannel = "jarvis";
     public static String NameofJarvisControlRole = "alphatierchen";
-    public static String ColorofJarvisControlRole = "#ff00ff";
 
     public static String EmoteforSkip = "⏭";
     public static String EmoteforPause = "⏯";
