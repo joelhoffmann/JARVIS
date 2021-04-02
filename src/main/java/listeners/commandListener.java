@@ -71,30 +71,6 @@ public class commandListener extends ListenerAdapter {
                 event.getChannel().sendMessage("Du hast die Rolle schon").queue();
             }
         }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforready)) {
-            if(checkingSetup.text.length() == 0){
-                List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
-                if (messages.size() > 1) {
-                    for (int i = 0; i < (messages.size() - 1); i++) {
-                        String t = messages.get(i).toString();
-                        String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
-                        event.getChannel().deleteMessageById(requiredString).queue();
-                    }
-                }
-                event.getGuild().removeRoleFromMember(event.getUser().getIdLong(), event.getGuild().getRolesByName(STATIC.NameofWelcomeRole, false).get(0)).queue();
-            }else{
-                event.getReaction().removeReaction(event.getUser()).queue();
-                Guild g = event.getGuild();
-                cmdSetup.makeSetup(g);
-                EmbedBuilder eb = new EmbedBuilder();
-                eb.setColor(Color.blue)
-                        .setTitle("Alles Klar!")
-                        .setDescription("Es ist alles wieder in Ordnung." +
-                                "Zum Löschen dieser Nachricht, klicke einfach auf das Kreuz.");
-                Message msg = event.getGuild().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).editMessageById(g.getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).getLatestMessageId(), eb.build()).complete();
-                msg.addReaction(STATIC.Emotefordelete).complete();
-            }
-        }
         if(event.getReactionEmote().getEmoji().contains(STATIC.Emotefordelete)){
             event.getGuild().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).deleteMessageById(event.getGuild().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).getLatestMessageId()).queue();
         }
