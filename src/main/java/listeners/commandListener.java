@@ -13,7 +13,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import util.SECRETS;
 import util.STATIC;
-import util.checkingSetup;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;

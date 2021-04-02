@@ -2,7 +2,6 @@ package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
-import util.checkingSetup;
 
 public class cmdPing implements command {
 
