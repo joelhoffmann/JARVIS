@@ -56,12 +56,12 @@ public class readyListener extends ListenerAdapter {
     }
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName(STATIC.NameofWelcomeRole, false).get(0)).queue();
+        event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRoleById("827485243627929610")).queue();
         event.getUser().openPrivateChannel().queue((channel) ->
         {
             channel.sendMessage("Hey " + event.getUser().getName() + "!" +
                     "\nCool das du auf meinen Server gekommen bist!" +
-                    "\nIch bin Jarvis, der alwissende bot auf dem Server 'brain.exe'" +
+                    "\nIch bin Jarvis, der allwissende Bot auf dem Server 'brain.exe'" +
                     "\nViel Spaß auf dem Server!!!").queue();
         });
     }
