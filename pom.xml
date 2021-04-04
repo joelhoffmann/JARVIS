@@ -14,7 +14,12 @@
 		 <id>jitpack.io</id>
 		 <name>JitPack</name>
 		 <url>https://jitpack.io</url>
-	</repository> 
+	 </repository>
+	 <repository>
+		<id>central</id>
+		<name>bintray</name>
+		<url>http://jcenter.bintray.com</url>
+	</repository>	
 	 <repository>
             <id>whatever</id>
             <name>whatever</name>
@@ -30,7 +35,7 @@
     <dependencies>
         <dependency>
             <groupId>se.michaelthelin.spotify</groupId>
-            <artifactId>spotify-web-api-java</artifactId>
+	    <artifactId>spotify-web-api-java</artifactId>
             <version>6.5.1</version>
         </dependency>
         <dependency>
