@@ -11,21 +11,6 @@
 
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <name>JitPack</name>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
-            <id>jcenter</id>
-            <name>JCenter</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-        <repository>
-            <id>central</id>
-            <name>bintray</name>
-            <url>http://jcenter.bintray.com</url>
-        </repository>
-        <repository>
             <id>whatever</id>
             <name>whatever</name>
             <url>https://dl.bintray.com/natanbc/maven</url>
