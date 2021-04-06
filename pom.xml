@@ -95,17 +95,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>9</source>
-                    <target>9</target>
+		<version>3.8.0</version>
+		<configuration>
+			 <release>11</release>
                 </configuration>
-            </plugin>
-		 <plugin>
+           </plugin>
+		<plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
-            <version>1.2.1</version>
-            <configuration>
-                <mainClass>core.Main</mainClass>
+            <version>3.0.0</version>
+	    <configuration>
+		<mainClass>core.Main</mainClass>
             </configuration>
         </plugin>
         </plugins>
