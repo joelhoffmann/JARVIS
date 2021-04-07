@@ -217,7 +217,7 @@ public class cmdMusic implements command {
                 event.getTextChannel().sendMessage("Falsche Eingabe").queue();
                 return;
             }
-            //Display Queue
+        //Display Queue
         } else if (event.getMessage().getContentDisplay().startsWith(".queue")) {
             if (args.length == 0) {
                 if (isIdle(guild)) return;
@@ -238,7 +238,7 @@ public class cmdMusic implements command {
                 event.getTextChannel().sendMessage("Falsche Eingabe").queue();
                 return;
             }
-            //Searching for a song or playlist
+        //Searching for a song or playlist
         } else if (args[0].toLowerCase().startsWith("http")) {
             if (args.length == 1) {
                 String input = args[0];
@@ -278,16 +278,17 @@ public class cmdMusic implements command {
                 }
 
             } else {
-                sendErrorMsg(event, "Please enter a valid source!_test");
+                sendErrorMsg(event, "Please enter a valid source!");
                 return;
             }
-
+        //direkt play
         } else if (event.getMessage().getContentDisplay().toLowerCase().contains(".play")) {
             String input = "ytsearch: ";
             for (int i = 0; i < args.length; i++) {
                 input += (args[i] + " ");
             }
             loadTrack(input, event.getMember(), event.getMessage());
+        //Extended commands
         } else {
             switch (args[0].toLowerCase()) {
 
