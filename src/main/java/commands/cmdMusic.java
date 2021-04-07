@@ -298,6 +298,15 @@ public class cmdMusic implements command {
 
                 case "now":
                 case "info":
+                    if(event.getChannel().getHistory().getRetrievedHistory().size() > 0){
+                        if(player.getPlayingTrack().getInfo().length > 0){
+                            updateInfoMessage();
+                        }else{
+                            defaultInfoMessage();
+                        }
+                    }else{
+                        sendInfoMessage();
+                    }
                     if (isIdle(guild)) return;
                     sendInfoMessage();
                     break;
@@ -322,7 +331,6 @@ public class cmdMusic implements command {
         eb.setColor(Color.blue)
                 .setDescription("-----------Aktueller Track-----------")
                 .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
-                //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
                 .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
@@ -354,7 +362,6 @@ public class cmdMusic implements command {
         eb.setColor(Color.blue)
                 .setDescription("-----------Aktueller Track-----------")
                 .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
-                //.addField("Duration", "`[ " + getTimestamp(track.getPosition()) + "/ " + getTimestamp(track.getDuration()) + " ]`", false)
                 .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
 
