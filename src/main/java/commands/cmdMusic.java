@@ -333,13 +333,13 @@ public class cmdMusic implements command {
         msg.addReaction(STATIC.Emoteforhigher).complete();
     }
     public static void defaultInfoMessage() {
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(Color.blue)
+        EmbedBuilder eb2 = new EmbedBuilder();
+        eb2.setColor(Color.blue)
                 .setDescription("-----------Aktueller Track-----------")
                 .addField("Title", "Auf der Mauer auf der Lauer sitzt ne kleine Wanze (inoffical Video)", false)
                 .addField("by", "Weiß ich net. Quelle: Kopf", false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
-        Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
+        Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb2.build()).complete();
         msg.addReaction(STATIC.EmoteforPause).complete();
         msg.addReaction(STATIC.EmoteforStop).complete();
         msg.addReaction(STATIC.EmoteforSkip).complete();
