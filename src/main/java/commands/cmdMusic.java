@@ -332,7 +332,7 @@ public class cmdMusic implements command {
         msg.addReaction(STATIC.Emoteforlower).complete();
         msg.addReaction(STATIC.Emoteforhigher).complete();
     }
-    public static void defaultInfoMessage() {
+    public void defaultInfoMessage() {
         EmbedBuilder eb2 = new EmbedBuilder();
         eb2.setColor(Color.blue)
                 .setDescription("-----------Aktueller Track-----------")
