@@ -29,11 +29,9 @@ public class SearchPlaylist{
     private static final SearchPlaylistsRequest searchPlaylistsRequest = spotifyApi.searchPlaylists(q)
             .build();
 
-
     public static void searchPlaylists_Sync() {
         try {
             final Paging<PlaylistSimplified> playlistSimplifiedPaging = searchPlaylistsRequest.execute();
-
             System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
@@ -43,12 +41,7 @@ public class SearchPlaylist{
     public static void searchPlaylists_Async() {
         try {
             final CompletableFuture<Paging<PlaylistSimplified>> pagingFuture = searchPlaylistsRequest.executeAsync();
-
-            // Thread free to do other tasks...
-
-            // Example Only. Never block in production code.
             final Paging<PlaylistSimplified> playlistSimplifiedPaging = pagingFuture.join();
-
             System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
         } catch (CompletionException e) {
             System.out.println("Error: " + e.getCause().getMessage());

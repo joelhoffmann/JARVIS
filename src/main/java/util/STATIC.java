@@ -1,7 +1,6 @@
 package util;
 
-import SpotifyAPI.ClientCredentialsExample;
-import com.wrapper.spotify.SpotifyApi;
+import SpotifyAPI.ClientCredentials;
 
 public class STATIC {
     public static String prefix = ".";
@@ -27,7 +26,7 @@ public class STATIC {
     public static String Emoteforready = "✅";
     public static String Emotefordelete = "❌";
 
-    static ClientCredentialsExample TokenGenerator = new ClientCredentialsExample();
+    static ClientCredentials TokenGenerator = new ClientCredentials();
     public static String accessToken = TokenGenerator.Token();
 
 

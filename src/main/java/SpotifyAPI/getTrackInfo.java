@@ -49,11 +49,9 @@ public class getTrackInfo {
         }
     }
 
-
     public static void getTrack_Sync() {
         try {
             final Track track = getTrackRequest.execute();
-
             System.out.println("Name: " + track.getName());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
@@ -63,12 +61,7 @@ public class getTrackInfo {
     public static void getTrack_Async() {
         try {
             final CompletableFuture<Track> trackFuture = getTrackRequest.executeAsync();
-
-            // Thread free to do other tasks...
-
-            // Example Only. Never block in production code.
             final Track track = trackFuture.join();
-
             System.out.println("Name: " + track.getName());
         } catch (CompletionException e) {
             System.out.println("Error: " + e.getCause().getMessage());

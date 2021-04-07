@@ -12,6 +12,21 @@
       <option name="url" value="https://jcenter.bintray.com" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="jitpack.io" />
+      <option name="name" value="jitpack.io" />
+      <option name="url" value="https://jitpack.io" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dv8tion" />
+      <option name="name" value="dv8tion" />
+      <option name="url" value="https://m2.dv8tion.net/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dl.bintray" />
+      <option name="name" value="dl.bintray" />
+      <option name="url" value="https://dl.bintray.com/natanbc/maven" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="bintray" />
       <option name="url" value="http://jcenter.bintray.com" />
@@ -35,6 +50,11 @@
       <option name="id" value="whatever" />
       <option name="name" value="whatever" />
       <option name="url" value="https://dl.bintray.com/natanbc/mave" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jcenter.bintray" />
+      <option name="name" value="jcenter.bintray" />
+      <option name="url" value="http://jcenter.bintray.com" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="whatever" />

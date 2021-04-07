@@ -13,7 +13,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class ClientCredentialsExample {
+public class ClientCredentials {
     static SECRETS secrets = new SECRETS();
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(secrets.getClientId())
@@ -22,7 +22,7 @@ public class ClientCredentialsExample {
     private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
             .build();
 
-    public ClientCredentialsExample(){
+    public ClientCredentials(){
 
     }
     public String Token (){
@@ -32,8 +32,7 @@ public class ClientCredentialsExample {
     }
     public static void clientCredentials_Sync() {
         try {
-            final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
-            // Set access token for further "spotifyApi" object usage
+            final com.wrapper.spotify.model_objects.credentials.ClientCredentials clientCredentials = clientCredentialsRequest.execute();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
             System.out.println("Expires in: " + clientCredentials.getExpiresIn());
@@ -44,17 +43,10 @@ public class ClientCredentialsExample {
 
     public static void clientCredentials_Async() {
         try {
-            final CompletableFuture<ClientCredentials> clientCredentialsFuture = clientCredentialsRequest.executeAsync();
-
-            // Thread free to do other tasks...
-
-            // Example Only. Never block in production code.
-            final ClientCredentials clientCredentials = clientCredentialsFuture.join();
-
-            // Set access token for further "spotifyApi" object usage
+            final CompletableFuture<com.wrapper.spotify.model_objects.credentials.ClientCredentials> clientCredentialsFuture = clientCredentialsRequest.executeAsync();
+            final com.wrapper.spotify.model_objects.credentials.ClientCredentials clientCredentials = clientCredentialsFuture.join();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
-
             System.out.println("Expires in: " + clientCredentials.getExpiresIn());
         } catch (CompletionException e) {
             System.out.println("Error: " + e.getCause().getMessage());

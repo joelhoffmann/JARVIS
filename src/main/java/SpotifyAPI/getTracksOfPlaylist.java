@@ -30,12 +30,10 @@ public class getTracksOfPlaylist {
         try {
             final Playlist playlist = getPlaylistRequest.execute();
             PlaylistTrack[] PlaylistItems = playlist.getTracks().getItems();
-
             for(int i = 0; i < PlaylistItems.length; i++){
                 getTrackInfo info = new getTrackInfo(PlaylistItems[i].getTrack().getId());
                 Tracks_Raw.add("ytsearch: " + PlaylistItems[i].getTrack().getName() + " " + info.getTrackAuthor());
             }
-
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
         }
