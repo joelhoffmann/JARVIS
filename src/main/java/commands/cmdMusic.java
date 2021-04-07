@@ -299,15 +299,7 @@ public class cmdMusic implements command {
 
                 case "now":
                 case "info":
-                    if(event.getChannel().getHistory().getRetrievedHistory().size() > 0){
-                        if(player.getPlayingTrack().getInfo().length > 0){
-                            updateInfoMessage();
-                        }else{
-                            defaultInfoMessage();
-                        }
-                    }else{
-                        sendInfoMessage();
-                    }
+                    defaultInfoMessage();
                     break;
                 case "skip":
                     skip();
