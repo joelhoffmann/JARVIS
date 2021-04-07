@@ -308,8 +308,6 @@ public class cmdMusic implements command {
                     }else{
                         sendInfoMessage();
                     }
-                    if (isIdle(guild)) return;
-                    sendInfoMessage();
                     break;
                 case "skip":
                     skip();
