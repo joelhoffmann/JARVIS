@@ -81,6 +81,7 @@ public class TrackManager extends AudioEventAdapter {
         if(queue.poll() != null) {
             if (queue.isEmpty()){
                 guild.getAudioManager().closeAudioConnection();
+                cmdMusic.defaultInfoMessage();
             }
             else{
                 cmdMusic Message = new cmdMusic();
