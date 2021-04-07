@@ -334,7 +334,7 @@ public class cmdMusic implements command {
         msg.addReaction(STATIC.Emoteforhigher).complete();
     }
     public static void defaultInfoMessage() {
-        eb = new EmbedBuilder();
+        EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("-----------Aktueller Track-----------")
                 .addField("Title", "Auf der Mauer auf der Lauer sitzt ne kleine Wanze (inoffical Video)", false)
