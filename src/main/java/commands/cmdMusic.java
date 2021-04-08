@@ -299,7 +299,20 @@ public class cmdMusic implements command {
 
                 case "now":
                 case "info":
-                    defaultInfoMessage();
+                    List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
+                    if(messages.size() > 0){
+                        if(player == null){
+                            defaultInfoMessage();
+                        }else if(player.getPlayingTrack().getInfo().length > 0){
+                            updateInfoMessage();
+                        }else{
+                            defaultInfoMessage();
+                        }
+                    }else{
+                        if(player != null && player.getPlayingTrack().getInfo().length > 0){
+                            sendInfoMessage();
+                        }
+                    }
                     break;
                 case "skip":
                     skip();
@@ -325,27 +338,17 @@ public class cmdMusic implements command {
                 .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
-        msg.addReaction(STATIC.EmoteforPause).complete();
-        msg.addReaction(STATIC.EmoteforStop).complete();
-        msg.addReaction(STATIC.EmoteforSkip).complete();
-        msg.addReaction(STATIC.EmoteforShuffle).complete();
-        msg.addReaction(STATIC.Emoteforlower).complete();
-        msg.addReaction(STATIC.Emoteforhigher).complete();
+        addReactionsMusic(msg);
     }
     public void defaultInfoMessage() {
         EmbedBuilder eb2 = new EmbedBuilder();
         eb2.setColor(Color.blue)
                 .setDescription("-----------Aktueller Track-----------")
-                .addField("Title", "Auf der Mauer auf der Lauer sitzt ne kleine Wanze (inoffical Video)", false)
-                .addField("by", "Weiß ich net. Quelle: Kopf", false);
+                .addField("Title", "HIER KÖNNTE IHRE WERBUNG STEHEN!!!!", false)
+                .addField("by", "ME", false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb2.build()).complete();
-        msg.addReaction(STATIC.EmoteforPause).complete();
-        msg.addReaction(STATIC.EmoteforStop).complete();
-        msg.addReaction(STATIC.EmoteforSkip).complete();
-        msg.addReaction(STATIC.EmoteforShuffle).complete();
-        msg.addReaction(STATIC.Emoteforlower).complete();
-        msg.addReaction(STATIC.Emoteforhigher).complete();
+        addReactionsMusic(msg);
     }
 
     public void sendInfoMessage() {
@@ -355,8 +358,10 @@ public class cmdMusic implements command {
                 .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
                 .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
-
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).sendMessage(eb.build()).complete();
+        addReactionsMusic(msg);
+    }
+    private void addReactionsMusic (Message msg){
         msg.addReaction(STATIC.EmoteforPause).complete();
         msg.addReaction(STATIC.EmoteforStop).complete();
         msg.addReaction(STATIC.EmoteforSkip).complete();

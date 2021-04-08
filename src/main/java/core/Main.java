@@ -33,13 +33,11 @@ public class Main {
     public static void addListener() {
         builder.addEventListeners(new readyListener());
         builder.addEventListeners(new commandListener());
-
     }
 
     public static void addCommand() {
         commandHandler.commands.put("ping", new cmdPing());
         commandHandler.commands.put("info", new cmdInfo());
-        commandHandler.commands.put("status", new cmdStatus());
         commandHandler.commands.put("clear", new cmdClearChannel());
         commandHandler.commands.put("music", new cmdMusic());
         commandHandler.commands.put("queue", new cmdMusic());

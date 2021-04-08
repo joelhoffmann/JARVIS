@@ -3,10 +3,7 @@ package listeners;
 
 import commands.cmdMusic;
 import core.commandHandler;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -16,9 +13,6 @@ import util.STATIC;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
-import java.util.Arrays;
-import java.util.List;
-import java.awt.Color;
 
 
 public class commandListener extends ListenerAdapter {
@@ -42,38 +36,8 @@ public class commandListener extends ListenerAdapter {
     }
 
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
+        LOGGER.info(event.getReaction().getReactionEmote().getEmoji());
         if (event.getUser().isBot()) return;
-        //Rollenzuweisung
-        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforHoffi)) {
-            String[] vergl = {"Hoffis"};
-            if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
-                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Hoffis", false).get(0)).queue();
-                event.getChannel().sendMessage("Du hast die Rolle von Joel erhalten").queue();
-            } else {
-                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
-            }
-        }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforNXZAS8CA)) {
-            String[] vergl = {"Simons"};
-            if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
-                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Simons", false).get(0)).queue();
-                event.getChannel().sendMessage("Du hast die Rolle von Simon erhalten").queue();
-            } else {
-                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
-            }
-        }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforMalte)) {
-            String[] vergl = {"Maltes"};
-            if (Arrays.stream(vergl).noneMatch(event.getMember().getRoles().toString()::contains)) {
-                event.getGuild().addRoleToMember(event.getUser().getId(), event.getGuild().getRolesByName("Maltes", false).get(0)).queue();
-                event.getChannel().sendMessage("Du hast die Rolle von Malte erhalten").queue();
-            } else {
-                event.getChannel().sendMessage("Du hast die Rolle schon").queue();
-            }
-        }
-        if(event.getReactionEmote().getEmoji().contains(STATIC.Emotefordelete)){
-            event.getGuild().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).deleteMessageById(event.getGuild().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).getLatestMessageId()).queue();
-        }
         //Musik
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
@@ -84,13 +48,11 @@ public class commandListener extends ListenerAdapter {
             event.getReaction().removeReaction(event.getUser()).queue();
             cmdMusic musicController = new cmdMusic();
             musicController.stop();
-
         }
         if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             cmdMusic musicController = new cmdMusic();
             musicController.shuffle();
-
         }
         if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
             event.getReaction().removeReaction(event.getUser()).queue();
