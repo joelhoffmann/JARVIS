@@ -16,10 +16,9 @@ import java.util.concurrent.CompletionException;
 
 public class ClientCredentials {
     private static Logger LOGGER =  LoggerFactory.getLogger(ClientCredentials.class);
-    static SECRETS secrets = new SECRETS();
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(secrets.getClientId())
-            .setClientSecret(secrets.getClientSecret())
+            .setClientId(SECRETS.clientId)
+            .setClientSecret(SECRETS.clientSecret)
             .build();
     private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
             .build();

@@ -15,9 +15,8 @@ public class Main {
     public static JDABuilder builder;
 
     public static void main(String[] args) {
-        SECRETS secrets = new SECRETS();
-        builder = JDABuilder.createDefault(secrets.getToken());
-        builder.setToken(secrets.getToken());
+        builder = JDABuilder.createDefault(SECRETS.Token);
+        builder.setToken(SECRETS.Token);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.setActivity(Activity.playing("mit deinen Daten"));
