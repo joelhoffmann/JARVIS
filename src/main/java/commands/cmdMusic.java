@@ -24,7 +24,6 @@ import util.STATIC;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class cmdMusic implements command {
     //TODO: needs an urgent rework!
@@ -201,15 +200,14 @@ public class cmdMusic implements command {
         } else if (event.getMessage().getContentDisplay().startsWith(".queue")) {
             if (args.length == 0) {
                 if (isIdle(guild)) return;
-                int sideNumb = args.length > 1 ? Integer.parseInt(args[1]) : 1;
                 List<String> tracks = new ArrayList<>();
                 trackSublist = new ArrayList<>();
                 getManager(guild).getQueue().forEach(audioInfo -> tracks.add(buildQueueMessage(audioInfo)));
                 if (tracks.size() > 10)
-                    trackSublist = tracks.subList((sideNumb - 1) * 10, (sideNumb - 1) * 10 + 10);
+                    trackSublist = tracks.subList(0, 10);
                 else
                     trackSublist = tracks;
-                String out = trackSublist.stream().collect(Collectors.joining("\n"));
+                String out = String.join("\n", trackSublist);
                 eb = new EmbedBuilder();
                 eb.setColor(Color.blue)
                         .addField("**CURRENT QUEUE:**", out ,false);
