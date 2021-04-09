@@ -7,7 +7,6 @@ import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
 import com.wrapper.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
 import org.apache.hc.core5.http.ParseException;
 
-
 import java.io.IOException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
@@ -49,5 +48,4 @@ public class SearchPlaylist{
             System.out.println("Async operation cancelled.");
         }
     }
-
 }
