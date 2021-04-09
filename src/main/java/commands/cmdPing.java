@@ -8,12 +8,7 @@ public class cmdPing implements command {
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        if (event.getTextChannel().getName().equals(STATIC.NameofControlChannel)) {
-            return false;
-        } else {
-            return true;
-        }
-
+        return !event.getTextChannel().getName().equals(STATIC.NameofControlChannel);
     }
 
     @Override
@@ -26,10 +21,5 @@ public class cmdPing implements command {
     @Override
     public void executed(boolean success, MessageReceivedEvent event) {
 
-    }
-
-    @Override
-    public String help() {
-        return null;
     }
 }

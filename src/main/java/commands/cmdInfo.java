@@ -21,21 +21,11 @@ public class cmdInfo implements command{
                 eb.setColor(Color.red);
                 event.getChannel().sendMessage(eb.build()).queue();
             }
-            else {
-
-            }
-
         }
-
     }
 
     @Override
     public void executed(boolean success, MessageReceivedEvent event) {
 
-    }
-
-    @Override
-    public String help() {
-        return null;
     }
 }

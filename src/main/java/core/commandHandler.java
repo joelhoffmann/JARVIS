@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 public class commandHandler {
 
-    public static commandParser parse = new commandParser();
     public static HashMap<String, command> commands = new HashMap<>();
 
     public static void handleCommand(commandParser.commandContainer cmd) {
@@ -16,7 +15,6 @@ public class commandHandler {
                 commands.get(cmd.invoke).action(cmd.args, cmd.event);
                 commands.get(cmd.invoke).executed(safe, cmd.event);
             }
-        } else {
         }
     }
 }

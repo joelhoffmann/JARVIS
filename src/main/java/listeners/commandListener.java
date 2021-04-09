@@ -3,6 +3,7 @@ package listeners;
 
 import commands.cmdMusic;
 import core.commandHandler;
+import core.commandParser;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -18,7 +19,7 @@ import javax.security.auth.login.LoginException;
 
 
 public class commandListener extends ListenerAdapter {
-    private static Logger LOGGER = LoggerFactory.getLogger(commandListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(commandListener.class);
 
     public void main(String[] args) throws LoginException {
         JDABuilder.createLight(SECRETS.Token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
@@ -27,14 +28,14 @@ public class commandListener extends ListenerAdapter {
     }
 
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.getMessage().getContentDisplay().startsWith(STATIC.prefix) && event.getMessage().getAuthor().getId() != event.getJDA().getSelfUser().getId()) {
+        if (event.getMessage().getContentDisplay().startsWith(STATIC.prefix) && !event.getMessage().getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
             if (event.getAuthor().isBot()) {
                 return;
             } else {
                 LOGGER.info("command: " + event.getMessage().getContentDisplay());
                 event.getMessage().delete().queue();
             }
-            commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
+            commandHandler.handleCommand(commandParser.parser(event.getMessage().getContentDisplay(), event));
         }
     }
 

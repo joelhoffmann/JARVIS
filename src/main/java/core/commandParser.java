@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class commandParser {
 
@@ -13,9 +14,7 @@ public class commandParser {
         String invoke = splitbeheaded[0];
         ArrayList<String> split = new ArrayList<>();
 
-        for(String s : splitbeheaded){
-            split.add(s);
-        }
+        Collections.addAll(split, splitbeheaded);
 
         String[] args = new String[split.size() -1 ];
         split.subList(1, split.size()).toArray(args);

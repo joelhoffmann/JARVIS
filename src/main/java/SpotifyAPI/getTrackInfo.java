@@ -17,17 +17,14 @@ import java.util.concurrent.CompletionException;
 import static util.STATIC.accessToken;
 
 public class getTrackInfo {
-    private static Logger LOGGER = LoggerFactory.getLogger(getTrackInfo.class);
-    private static String id = "";
-    private static SpotifyApi spotifyApi = null;
+    private static final Logger LOGGER = LoggerFactory.getLogger(getTrackInfo.class);
     private static GetTrackRequest getTrackRequest = null;
 
     public getTrackInfo(String ID){
-        id = ID;
-        spotifyApi = new SpotifyApi.Builder()
+        SpotifyApi spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
-        getTrackRequest = spotifyApi.getTrack(id)
+        getTrackRequest = spotifyApi.getTrack(ID)
                 .build();
     }
 

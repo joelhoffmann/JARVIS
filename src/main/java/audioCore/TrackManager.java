@@ -18,14 +18,14 @@ import static commands.cmdMusic.*;
 
 
 public class TrackManager extends AudioEventAdapter {
-    private static Logger LOGGER = LoggerFactory.getLogger(TrackManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrackManager.class);
 
     private final AudioPlayer PLAYER;
     public static Queue<AudioInfo> queue;
 
     public TrackManager(AudioPlayer player) {
         this.PLAYER = player;
-        this.queue = new LinkedBlockingQueue<>();
+        queue = new LinkedBlockingQueue<>();
     }
 
     public void queue(AudioTrack track, Member author) {
@@ -39,12 +39,6 @@ public class TrackManager extends AudioEventAdapter {
 
     public Set<AudioInfo> getQueue() {
         return new LinkedHashSet<>(queue);
-    }
-
-    public AudioInfo getInfo(AudioTrack track) {
-        return queue.stream()
-                .filter(info -> info.getTrack().equals(track))
-                .findFirst().orElse(null);
     }
 
     public void purgeQueue() {
@@ -64,7 +58,7 @@ public class TrackManager extends AudioEventAdapter {
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         AudioInfo info = queue.element();
-        VoiceChannel vChan = info.getAuthor().getVoiceState().getChannel();
+        VoiceChannel vChan = Objects.requireNonNull(info.getAuthor().getVoiceState()).getChannel();
         if (vChan == null)
             player.stopTrack();
         else

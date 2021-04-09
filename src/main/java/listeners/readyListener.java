@@ -1,6 +1,5 @@
 package listeners;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -13,14 +12,14 @@ import util.STATIC;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
-import java.awt.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class readyListener extends ListenerAdapter {
-    private static Logger LOGGER = LoggerFactory.getLogger(readyListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(readyListener.class);
 
     public static void main(String[] args) throws LoginException {
         JDABuilder.createLight(SECRETS.Token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
@@ -41,7 +40,7 @@ public class readyListener extends ListenerAdapter {
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
         if(event.getGuild().getRoleById("827485243627929610") != null){
-            event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById("827485243627929610")).complete();
+            event.getGuild().addRoleToMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById("827485243627929610"))).complete();
         }
         System.out.println("test................................");
         event.getUser().openPrivateChannel().queue((channel) ->

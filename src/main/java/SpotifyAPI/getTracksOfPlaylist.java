@@ -13,16 +13,13 @@ import java.util.ArrayList;
 import static util.STATIC.accessToken;
 
 public class getTracksOfPlaylist {
-    private static String playlistId;
-    private static SpotifyApi spotifyApi;
     private static GetPlaylistRequest getPlaylistRequest;
 
     public getTracksOfPlaylist(String ID) {
-        playlistId = ID;
-        spotifyApi = new SpotifyApi.Builder()
+        SpotifyApi spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
-        getPlaylistRequest = spotifyApi.getPlaylist(playlistId).build();
+        getPlaylistRequest = spotifyApi.getPlaylist(ID).build();
     }
 
     public ArrayList<String> getTrackNames() {
@@ -30,9 +27,9 @@ public class getTracksOfPlaylist {
         try {
             final Playlist playlist = getPlaylistRequest.execute();
             PlaylistTrack[] PlaylistItems = playlist.getTracks().getItems();
-            for(int i = 0; i < PlaylistItems.length; i++){
-                getTrackInfo info = new getTrackInfo(PlaylistItems[i].getTrack().getId());
-                Tracks_Raw.add("ytsearch: " + PlaylistItems[i].getTrack().getName() + " " + info.getTrackAuthor());
+            for (PlaylistTrack playlistItem : PlaylistItems) {
+                getTrackInfo info = new getTrackInfo(playlistItem.getTrack().getId());
+                Tracks_Raw.add("ytsearch: " + playlistItem.getTrack().getName() + " " + info.getTrackAuthor());
             }
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());

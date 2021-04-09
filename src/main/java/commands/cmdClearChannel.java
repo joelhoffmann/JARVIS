@@ -5,11 +5,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import util.STATIC;
 
 import java.util.List;
+import java.util.Objects;
 
 public class cmdClearChannel implements command{
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
-        for(int i = 0; i < event.getMember().getRoles().size(); i++){
+        for(int i = 0; i < Objects.requireNonNull(event.getMember()).getRoles().size(); i++){
             String input = event.getMember().getRoles().get(i).toString();
             if(input.contains(STATIC.NameofJarvisControlRole)){
                 return false;
@@ -23,8 +24,8 @@ public class cmdClearChannel implements command{
         if(args.length == 0){
             List<Message> messages = event.getChannel().getHistory().retrievePast(50).complete();
             if (messages.size() > 1) {
-                for (int i = 0; i < messages.size(); i++) {
-                    String t = messages.get(i).toString();
+                for (Message message : messages) {
+                    String t = message.toString();
                     String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
                     event.getChannel().deleteMessageById(requiredString).queue();
                 }
@@ -33,8 +34,8 @@ public class cmdClearChannel implements command{
             int input = Integer.parseInt(args[0]);
             List<Message> messages = event.getChannel().getHistory().retrievePast(input).complete();
             if (messages.size() > 0) {
-                for (int i = 0; i < messages.size(); i++) {
-                    String t = messages.get(i).toString();
+                for (Message message : messages) {
+                    String t = message.toString();
                     String requiredString = t.substring(t.indexOf("(") + 1, t.indexOf(")"));
                     event.getChannel().deleteMessageById(requiredString).complete();
                 }
@@ -45,10 +46,5 @@ public class cmdClearChannel implements command{
     @Override
     public void executed(boolean success, MessageReceivedEvent event) {
 
-    }
-
-    @Override
-    public String help() {
-        return null;
     }
 }
