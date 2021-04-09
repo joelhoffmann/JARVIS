@@ -38,7 +38,6 @@ public class cmdMusic implements command {
 
     public EmbedBuilder eb;
 
-
     //Audio Manager als Audio-Stream-Recource deklarieren
     public cmdMusic() {
         AudioSourceManagers.registerRemoteSources(playerManager);
@@ -159,7 +158,6 @@ public class cmdMusic implements command {
         volume = volume + 5;
         player.setVolume(volume);
     }
-
 
     // Erzeugt aus dem Timestamp in Millisekunden ein hh:mm:ss - Zeitformat.
     //TODO: method is not in usage, could be deleted or used to display remaining time of the playing track.
