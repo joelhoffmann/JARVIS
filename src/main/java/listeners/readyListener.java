@@ -14,7 +14,6 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,22 +45,17 @@ public class readyListener extends ListenerAdapter {
                     "\n-Status Ende -").queue();
             System.out.println("Jarvis is ready");
         }
-        String out = "\nThis bot is running on following servers: \n";
-        for (Guild g : event.getJDA().getGuilds()) {
-            out += g.getName() + " (" + g.getId() + ") \n";
-        }
-        System.out.println(out);
     }
 
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById("827485243627929610")).complete();
+        if(event.getGuild().getRoleById("827485243627929610") != null){
+            event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById("827485243627929610")).complete();
+        }
         System.out.println("test................................");
         event.getUser().openPrivateChannel().queue((channel) ->
-        {
-            channel.sendMessage("Hey " + event.getUser().getName() + "!" +
-                    "\nCool das du auf meinen Server gekommen bist!" +
-                    "\nIch bin Jarvis, der allwissende Bot auf dem Server 'brain.exe'" +
-                    "\nViel Spaß auf dem Server!!!").queue();
-        });
+                channel.sendMessage("Hey " + event.getUser().getName() + "!" +
+                        "\nCool das du auf meinen Server gekommen bist!" +
+                        "\nIch bin Jarvis, der allwissende Bot auf dem Server 'brain.exe'" +
+                        "\nViel Spaß auf dem Server!!!").queue());
     }
 }
