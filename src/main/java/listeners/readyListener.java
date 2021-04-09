@@ -38,7 +38,7 @@ public class readyListener extends ListenerAdapter {
         } else {
             //TODO: needs to be done in slf4j
             SimpleDateFormat formatter = new SimpleDateFormat(
-                    "yyyy.MM.dd - HH:mm:ss ");
+                    "dd.MM - HH:mm ");
             Date currentTime = new Date();
             System.out.println("going online:" + formatter.format(currentTime));
             event.getJDA().getTextChannelsByName(STATIC.NameofControlChannel, false).get(0).sendMessage("-Online-\n" +
