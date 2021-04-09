@@ -310,11 +310,6 @@ public class cmdMusic implements command {
     public void executed(boolean sucess, MessageReceivedEvent event) {
     }
 
-    @Override
-    public String help() {
-        return null;
-    }
-
     public void updateInfoMessage() {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
