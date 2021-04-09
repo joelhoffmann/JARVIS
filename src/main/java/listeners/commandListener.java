@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.SECRETS;
 import util.STATIC;
 
@@ -16,6 +18,7 @@ import javax.security.auth.login.LoginException;
 
 
 public class commandListener extends ListenerAdapter {
+    private static Logger LOGGER = LoggerFactory.getLogger(commandListener.class);
 
     public void main(String[] args) throws LoginException {
         SECRETS secrets = new SECRETS();
@@ -29,6 +32,7 @@ public class commandListener extends ListenerAdapter {
             if (event.getAuthor().isBot()) {
                 return;
             } else {
+                LOGGER.info(event.getMessage().getContentDisplay());
                 event.getMessage().delete().queue();
             }
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));

@@ -4,6 +4,8 @@ import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import org.apache.hc.core5.http.ParseException;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import util.SECRETS;
 import util.STATIC;
 
@@ -13,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class ClientCredentials {
+    private static Logger LOGGER =  LoggerFactory.getLogger(ClientCredentials.class);
     static SECRETS secrets = new SECRETS();
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(secrets.getClientId())
@@ -34,9 +37,9 @@ public class ClientCredentials {
             final com.wrapper.spotify.model_objects.credentials.ClientCredentials clientCredentials = clientCredentialsRequest.execute();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
-            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            LOGGER.info("Token Expires in:" + clientCredentials.getExpiresIn());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            LOGGER.error("Error: " + e.getMessage());
         }
     }
 
@@ -46,11 +49,11 @@ public class ClientCredentials {
             final com.wrapper.spotify.model_objects.credentials.ClientCredentials clientCredentials = clientCredentialsFuture.join();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
-            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            LOGGER.info("Token Expires in:" + clientCredentials.getExpiresIn());
         } catch (CompletionException e) {
-            System.out.println("Error: " + e.getCause().getMessage());
+            LOGGER.error("Error: " + e.getCause().getMessage());
         } catch (CancellationException e) {
-            System.out.println("Async operation cancelled.");
+            LOGGER.info("Async operation cancelled.");
         }
     }
 }

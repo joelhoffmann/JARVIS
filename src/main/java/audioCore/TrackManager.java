@@ -7,6 +7,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import commands.cmdMusic;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.*;
 import java.util.List;
@@ -16,6 +18,7 @@ import static commands.cmdMusic.*;
 
 
 public class TrackManager extends AudioEventAdapter {
+    private static Logger LOGGER = LoggerFactory.getLogger(TrackManager.class);
 
     private final AudioPlayer PLAYER;
     public static Queue<AudioInfo> queue;
@@ -73,11 +76,13 @@ public class TrackManager extends AudioEventAdapter {
         if(queue.poll() != null) {
             if (queue.isEmpty()){
                 guild.getAudioManager().closeAudioConnection();
+                LOGGER.info("Disconnecting Audio");
             }
             else{
                 cmdMusic Message = new cmdMusic();
                 Message.updateInfoMessage();
                 player.playTrack(queue.element().getTrack());
+                LOGGER.info("Play next song");
             }
         }
     }

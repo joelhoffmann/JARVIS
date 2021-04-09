@@ -6,6 +6,8 @@ import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Track;
 import com.wrapper.spotify.requests.data.tracks.GetTrackRequest;
 import org.apache.hc.core5.http.ParseException;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.concurrent.CancellationException;
@@ -15,6 +17,7 @@ import java.util.concurrent.CompletionException;
 import static util.STATIC.accessToken;
 
 public class getTrackInfo {
+    private static Logger LOGGER = LoggerFactory.getLogger(getTrackInfo.class);
     private static String id = "";
     private static SpotifyApi spotifyApi = null;
     private static GetTrackRequest getTrackRequest = null;
@@ -34,7 +37,7 @@ public class getTrackInfo {
             ArtistSimplified[] Artists = track.getArtists();
             return Artists[0].getName();
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            LOGGER.error("Error: " + e.getMessage());
             return null;
         }
     }
@@ -44,7 +47,7 @@ public class getTrackInfo {
             final Track track = getTrackRequest.execute();
             return track.getName();
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            LOGGER.error("Error: " + e.getMessage());
             return null;
         }
     }
@@ -52,9 +55,9 @@ public class getTrackInfo {
     public static void getTrack_Sync() {
         try {
             final Track track = getTrackRequest.execute();
-            System.out.println("Name: " + track.getName());
+            LOGGER.info("Searching for: " + track.getName());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            LOGGER.error("Error: " + e.getMessage());
         }
     }
 
@@ -62,11 +65,11 @@ public class getTrackInfo {
         try {
             final CompletableFuture<Track> trackFuture = getTrackRequest.executeAsync();
             final Track track = trackFuture.join();
-            System.out.println("Name: " + track.getName());
+            LOGGER.info("Searching for: " + track.getName());
         } catch (CompletionException e) {
-            System.out.println("Error: " + e.getCause().getMessage());
+            LOGGER.error("Error: " + e.getCause().getMessage());
         } catch (CancellationException e) {
-            System.out.println("Async operation cancelled.");
+            LOGGER.info("Async operation cancelled.");
         }
     }
 
