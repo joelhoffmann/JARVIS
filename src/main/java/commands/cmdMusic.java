@@ -205,15 +205,17 @@ public class cmdMusic implements command {
                 List<String> tracks = new ArrayList<>();
                 trackSublist = new ArrayList<>();
                 getManager(guild).getQueue().forEach(audioInfo -> tracks.add(buildQueueMessage(audioInfo)));
-                if (tracks.size() > 20)
-                    trackSublist = tracks.subList((sideNumb - 1) * 20, (sideNumb - 1) * 20 + 20);
+                if (tracks.size() > 10)
+                    trackSublist = tracks.subList((sideNumb - 1) * 10, (sideNumb - 1) * 10 + 10);
                 else
                     trackSublist = tracks;
                 String out = trackSublist.stream().collect(Collectors.joining("\n"));
-                event.getTextChannel().sendMessage(
-                        new EmbedBuilder()
-                                .setDescription("**CURRENT QUEUE:**\n" + out).build()
-                ).queue();
+                eb = new EmbedBuilder();
+                eb.setColor(Color.blue)
+                        .addField("**CURRENT QUEUE:**", out ,false);
+                Message msg = event.getTextChannel().sendMessage(eb.build()).complete();
+                msg.addReaction(STATIC.EmoteforDelete).complete();
+
             } else {
                 event.getTextChannel().sendMessage("Falsche Eingabe").queue();
             }

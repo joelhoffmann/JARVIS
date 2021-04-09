@@ -13,6 +13,7 @@ public class STATIC {
     public static String EmoteforShuffle = "🔀";
     public static String Emoteforlower = "🔉";
     public static String Emoteforhigher = "🔊";
+    public static String EmoteforDelete = "❌";
 
     static ClientCredentials TokenGenerator = new ClientCredentials();
     public static String accessToken = TokenGenerator.Token();

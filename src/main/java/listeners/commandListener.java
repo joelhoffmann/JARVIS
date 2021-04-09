@@ -41,37 +41,35 @@ public class commandListener extends ListenerAdapter {
 
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
         LOGGER.info(event.getReaction().getReactionEmote().getEmoji());
+        cmdMusic musicController = new cmdMusic();
         if (event.getUser().isBot()) return;
         //Musik
-        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
+        else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic musicController = new cmdMusic();
             musicController.skip();
         }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
+        else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic musicController = new cmdMusic();
             musicController.stop();
         }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
+        else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic musicController = new cmdMusic();
             musicController.shuffle();
         }
-        if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
+        else if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic musicController = new cmdMusic();
             musicController.pause();
         }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
+        else if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic musicController = new cmdMusic();
             musicController.vol_lower();
         }
-        if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
+        else if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
             event.getReaction().removeReaction(event.getUser()).queue();
-            cmdMusic musicController = new cmdMusic();
             musicController.vol_higher();
+        }
+        else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforDelete)){
+            event.getChannel().deleteMessageById(event.getMessageId()).queue();
         }
     }
 }
