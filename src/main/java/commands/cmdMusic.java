@@ -32,7 +32,7 @@ public class cmdMusic implements command {
     private final int PLAYLIST_LIMIT = 1000;
     public static Guild guild;
     public static AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
-    private static Map<Guild, Map.Entry<AudioPlayer, TrackManager>> PLAYERS = new HashMap<>();
+    private static final Map<Guild, Map.Entry<AudioPlayer, TrackManager>> PLAYERS = new HashMap<>();
     public static AudioPlayer player;
     public List<String> trackSublist;
     public ArrayList<String> Tracks;
@@ -181,18 +181,6 @@ public class cmdMusic implements command {
         return "`[ " + getTimestamp(length) + " ]` " + title + "\n";
     }
 
-    //Sendet eine Embed-Message in der Farbe Rot mit eingegebenen Content.
-    //TODO: method is not used.
-    private void sendErrorMsg(MessageReceivedEvent event, String content) {
-        event.getChannel().sendMessage(
-                new EmbedBuilder()
-                        .setColor(Color.red)
-                        .setDescription(content)
-                        .build()
-        ).queue();
-    }
-
-
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
         return !event.getTextChannel().getName().equals(STATIC.NameofMusicControlChannel);
@@ -228,7 +216,6 @@ public class cmdMusic implements command {
                 ).queue();
             } else {
                 event.getTextChannel().sendMessage("Falsche Eingabe").queue();
-                return;
             }
         //Searching for a song or playlist
         } else if (args[0].toLowerCase().startsWith("http")) {
@@ -238,7 +225,7 @@ public class cmdMusic implements command {
                     //Youtube
                     if (input.contains("youtube")) {
                         input = "ytsearch: " + input;
-                        loadTrack(input, event.getMember(), event.getMessage());
+                        loadTrack(input, Objects.requireNonNull(event.getMember()), event.getMessage());
                         //Spotify
                     } else if (input.contains("spotify")) {
                         //Playlist???
@@ -249,7 +236,7 @@ public class cmdMusic implements command {
                             getTracksOfPlaylist TrackName = new getTracksOfPlaylist(ID);
                             Tracks = TrackName.getTrackNames();
                             for (String track : Tracks) {
-                                loadTrack(track, event.getMember(), event.getMessage());
+                                loadTrack(track, Objects.requireNonNull(event.getMember()), event.getMessage());
                             }
                             int waiting = 0;
                             while (getManager(guild).getQueue().isEmpty()) {
@@ -263,22 +250,27 @@ public class cmdMusic implements command {
                             String[] test = input.split("/");
                             String ID = test[test.length - 1].substring(0, test[test.length - 1].indexOf("?"));
                             getTrackInfo Track = new getTrackInfo(ID);
-                            loadTrack("ytsearch: " + Track.getTrackName(), event.getMember(), event.getMessage());
+                            loadTrack("ytsearch: " + Track.getTrackName(), Objects.requireNonNull(event.getMember()), event.getMessage());
                         }
 
                     }
                 }
 
             } else {
-                sendErrorMsg(event, "Please enter a valid source!");
+                event.getChannel().sendMessage(
+                        new EmbedBuilder()
+                                .setColor(Color.red)
+                                .setDescription("Please enter a valid source!")
+                                .build()
+                ).queue();
             }
         //direkt play
         } else if (event.getMessage().getContentDisplay().toLowerCase().contains(".play")) {
-            String input = "ytsearch: ";
+            StringBuilder input = new StringBuilder("ytsearch: ");
             for (String arg : args) {
-                input += (arg + " ");
+                input.append(arg).append(" ");
             }
-            loadTrack(input, event.getMember(), event.getMessage());
+            loadTrack(input.toString(), Objects.requireNonNull(event.getMember()), event.getMessage());
         //Extended commands
         } else {
             switch (args[0].toLowerCase()) {
@@ -327,8 +319,8 @@ public class cmdMusic implements command {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("-----------------Aktueller Track-----------------")
-                .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
-                .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
+                .addField("Title", Objects.requireNonNull(TrackManager.queue.peek()).getTrack().getInfo().title, false)
+                .addField("by", Objects.requireNonNull(TrackManager.queue.peek()).getTrack().getInfo().author, false);
         List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).editMessageById(messages.get(messages.size() - 1).getId(), eb.build()).complete();
         addReactionsMusic(msg);
@@ -348,9 +340,8 @@ public class cmdMusic implements command {
         eb = new EmbedBuilder();
         eb.setColor(Color.blue)
                 .setDescription("-----------------Aktueller Track-----------------")
-                .addField("Title", TrackManager.queue.peek().getTrack().getInfo().title, false)
-                .addField("by", TrackManager.queue.peek().getTrack().getInfo().author, false);
-        List<Message> messages = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).getHistory().retrievePast(20).complete();
+                .addField("Title", Objects.requireNonNull(TrackManager.queue.peek()).getTrack().getInfo().title, false)
+                .addField("by", Objects.requireNonNull(TrackManager.queue.peek()).getTrack().getInfo().author, false);
         Message msg = guild.getTextChannelsByName(STATIC.NameofMusicControlChannel, false).get(0).sendMessage(eb.build()).complete();
         addReactionsMusic(msg);
     }

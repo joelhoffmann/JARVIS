@@ -36,7 +36,7 @@ public class ClientCredentials {
             final com.wrapper.spotify.model_objects.credentials.ClientCredentials clientCredentials = clientCredentialsRequest.execute();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
-            LOGGER.info("Token Expires in:" + clientCredentials.getExpiresIn());
+            LOGGER.info("Token Expires in: " + clientCredentials.getExpiresIn() + "s");
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             LOGGER.error("Error: " + e.getMessage());
         }
@@ -48,7 +48,7 @@ public class ClientCredentials {
             final com.wrapper.spotify.model_objects.credentials.ClientCredentials clientCredentials = clientCredentialsFuture.join();
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
             STATIC.accessToken = clientCredentials.getAccessToken();
-            LOGGER.info("Token Expires in:" + clientCredentials.getExpiresIn());
+            LOGGER.info("Token Expires in: " + clientCredentials.getExpiresIn() + "s");
         } catch (CompletionException e) {
             LOGGER.error("Error: " + e.getCause().getMessage());
         } catch (CancellationException e) {

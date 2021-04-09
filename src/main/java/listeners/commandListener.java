@@ -31,7 +31,7 @@ public class commandListener extends ListenerAdapter {
             if (event.getAuthor().isBot()) {
                 return;
             } else {
-                LOGGER.info(event.getMessage().getContentDisplay());
+                LOGGER.info("command: " + event.getMessage().getContentDisplay());
                 event.getMessage().delete().queue();
             }
             commandHandler.handleCommand(commandHandler.parse.parser(event.getMessage().getContentDisplay(), event));
