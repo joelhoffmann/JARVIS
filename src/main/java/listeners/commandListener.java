@@ -40,36 +40,46 @@ public class commandListener extends ListenerAdapter {
     }
 
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
-        LOGGER.info(event.getReaction().getReactionEmote().getEmoji());
         cmdMusic musicController = new cmdMusic();
         if (event.getUser().isBot()) return;
         //Musik
         else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforSkip)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             musicController.skip();
+            LOGGER.info("got command to skip");
         }
         else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforStop)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             musicController.stop();
+            LOGGER.info("got command to stop");
         }
         else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforShuffle)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             musicController.shuffle();
+            LOGGER.info("got command to shuffle");
         }
         else if(event.getReactionEmote().getEmoji().contains(STATIC.EmoteforPause)){
             event.getReaction().removeReaction(event.getUser()).queue();
             musicController.pause();
+            LOGGER.info("got command to pause");
+
         }
         else if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforlower)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             musicController.vol_lower();
+            LOGGER.info("got command to lower the volume");
+
         }
         else if (event.getReactionEmote().getEmoji().contains(STATIC.Emoteforhigher)) {
             event.getReaction().removeReaction(event.getUser()).queue();
             musicController.vol_higher();
+            LOGGER.info("got command to higher the volume");
+
         }
         else if (event.getReactionEmote().getEmoji().contains(STATIC.EmoteforDelete)){
             event.getChannel().deleteMessageById(event.getMessageId()).queue();
+            LOGGER.info("got command to delete");
+
         }
     }
 }
