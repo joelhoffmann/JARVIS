@@ -138,7 +138,6 @@ public class cmdMusic implements command {
         getManager(guild).purgeQueue();
         skip();
         guild.getAudioManager().closeAudioConnection();
-        System.gc();
         defaultInfoMessage();
     }
     public void shuffle(){
