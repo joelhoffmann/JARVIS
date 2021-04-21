@@ -26,7 +26,7 @@ public class ClientCredentials {
     public ClientCredentials(){
 
     }
-    public String Token (){
+    public  String Token (){
         clientCredentials_Sync();
         clientCredentials_Async();
         return STATIC.accessToken;
@@ -39,6 +39,7 @@ public class ClientCredentials {
             LOGGER.info("Token Expires in: " + clientCredentials.getExpiresIn() + "s");
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             LOGGER.error("Error: " + e.getMessage());
+            clientCredentials_Sync();
         }
     }
 
@@ -51,6 +52,7 @@ public class ClientCredentials {
             LOGGER.info("Token Expires in: " + clientCredentials.getExpiresIn() + "s");
         } catch (CompletionException e) {
             LOGGER.error("Error: " + e.getCause().getMessage());
+            clientCredentials_Async();
         } catch (CancellationException e) {
             LOGGER.info("Async operation cancelled.");
         }
