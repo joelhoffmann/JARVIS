@@ -18,10 +18,6 @@
 		 <id>jcenter.bintray</id>
 		 <url>https://jcenter.bintray.com</url>
 	</repository>	
-	 <repository>
-            <id>dl.bintray</id>
-            <url>https://dl.bintray.com/natanbc/maven</url>
-        </repository>
         <repository>
             <id>dv8tion</id>
             <url>https://m2.dv8tion.net/releases</url>
